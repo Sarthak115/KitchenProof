@@ -12,3 +12,4 @@ frontend/.env.production.local
 backend/local_media/
 .firebase/
 *.log
+*.tsbuildinfo
