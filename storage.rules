@@ -1,0 +1,18 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Owners upload the in-app recording: video only, max 150 MB.
+    match /audits/{auditId}/{file} {
+      allow write: if request.auth != null
+        && file.matches('recording\\.(webm|mp4)')
+        && request.resource.contentType.matches('video/.*')
+        && request.resource.size < 150 * 1024 * 1024;
+      // Owner/inspector playback in the prototype; raw videos are never linked publicly.
+      allow read: if request.auth != null;
+    }
+    // Sample videos for Demo Mode (uploaded by scripts/upload_demo_assets.py)
+    match /demo-assets/{file} {
+      allow read: if true;
+    }
+  }
+}

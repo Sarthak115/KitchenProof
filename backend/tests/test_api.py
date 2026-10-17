@@ -137,3 +137,16 @@ def test_missed_check_on_expiry(store):
 def test_health(store):
     c = client(store)
     assert c.get("/api/health").json()["ok"]
+
+
+def test_reaudit_for_inconclusive(store):
+    c = client(store)
+    aid = c.post("/api/inspector/surprise", json={"restaurantId": "r02"}).json()["auditId"]
+    store.update("audits", aid, {"status": "inconclusive", "outcome": "inconclusive"})
+    from app.timeutil import utcnow
+
+    store.update("audits", aid, {"completedAt": utcnow()})
+    res = c.post(f"/api/audits/{aid}/reaudit").json()
+    assert res["auditId"] != aid
+    assert c.get(f"/api/audits/{res['auditId']}").json()["trigger"] == "surprise"
+    assert c.post(f"/api/audits/{aid}/reaudit").json()["auditId"] == res["auditId"]

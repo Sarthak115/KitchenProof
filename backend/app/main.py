@@ -230,6 +230,26 @@ def create_audit_route(body: CreateAuditBody):
     return {"auditId": audit["id"], "startDeadlineAt": audit["startDeadlineAt"], "trigger": audit["trigger"]}
 
 
+@api.post("/audits/{audit_id}/reaudit")
+def reaudit(audit_id: str):
+    """Quick re-audit for an inconclusive audit (coverage < 70%), same trigger (§5.2 #4)."""
+    store = db()
+    audit = _get("audits", audit_id, "Audit")
+    if audit.get("outcome") != "inconclusive" and audit["status"] != "inconclusive":
+        raise HTTPException(409, "Only inconclusive audits can be re-audited.")
+    if audit.get("reauditId"):
+        return {"auditId": audit["reauditId"]}
+    if audit.get("completedAt") and utcnow() - audit["completedAt"] > timedelta(hours=2):
+        raise HTTPException(410, "The re-audit window (2 hours) has passed.")
+    rest = _get("restaurants", audit["restaurantId"], "Restaurant")
+    new = create_audit(store, rest, audit["trigger"], audit.get("orderId"), audit.get("requestedBy", "owner"))
+    store.update("audits", new["id"], {"reauditOf": audit_id})
+    store.update("audits", audit_id, {"reauditId": new["id"]})
+    if audit["trigger"] == "customer" and audit.get("orderId"):
+        store.update("orders", audit["orderId"], {"spotCheckAuditId": new["id"]})
+    return {"auditId": new["id"], "startDeadlineAt": new["startDeadlineAt"]}
+
+
 @api.get("/audits/{audit_id}")
 def get_audit(audit_id: str):
     audit = _get("audits", audit_id, "Audit")
@@ -549,7 +569,7 @@ def restaurant_audits(restaurant_id: str):
     audits = sorted(
         db().query("audits", [("restaurantId", "==", restaurant_id)]), key=lambda a: a["createdAt"], reverse=True
     )
-    return {"audits": [{**audit_view(a, with_findings=False), "outcome": public_outcome(a)} for a in audits]}
+    return {"audits": [{**audit_view(a, with_findings=False), "outcomeLabel": public_outcome(a)} for a in audits]}
 
 
 @api.get("/orders/{order_id}")
@@ -613,6 +633,7 @@ def config():
         "finishWindowMin": settings.finish_window_min,
         "customerChecksPerDay": settings.customer_checks_per_day,
         "customerCooldownDays": settings.customer_cooldown_days,
+        "demoResetOpen": settings.demo_mode and not settings.admin_secret,
     }
 
 
