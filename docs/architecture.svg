@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 560" font-family="Inter, Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="#475569"/></marker>
+  </defs>
+  <rect width="980" height="560" fill="#ffffff"/>
+  <text x="30" y="40" font-size="22" font-weight="800" fill="#0f172a">KitchenProof architecture</text>
+  <text x="30" y="62" font-size="13" fill="#64748b">Everything runs on Google Cloud. Gemini reads the video straight from Cloud Storage.</text>
+
+  <!-- Browser -->
+  <rect x="30" y="90" width="250" height="270" rx="14" fill="#f0fdfa" stroke="#0f766e" stroke-width="2"/>
+  <text x="50" y="118" font-size="15" font-weight="700" fill="#134e4a">Browser · React PWA</text>
+  <text x="50" y="140" font-size="12" fill="#115e59">served by Firebase Hosting</text>
+  <g font-size="13" fill="#0f172a">
+    <text x="50" y="172">Owner: live camera audit</text>
+    <text x="50" y="196">FoodieGo: customer badge</text>
+    <text x="50" y="220">Inspector: ranking + review</text>
+    <text x="50" y="256" fill="#475569">getUserMedia + MediaRecorder</text>
+    <text x="50" y="278" fill="#475569">GPS · spoken prompts (EN/HI)</text>
+    <text x="50" y="300" fill="#475569">Firebase Auth (anonymous)</text>
+    <text x="50" y="322" fill="#475569">Firestore realtime listeners</text>
+  </g>
+
+  <!-- Cloud Run -->
+  <rect x="360" y="90" width="300" height="330" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="380" y="118" font-size="15" font-weight="700" fill="#1e3a8a">Cloud Run · kitchenproof-api</text>
+  <text x="380" y="140" font-size="12" fill="#1d4ed8">FastAPI · Python 3.12 · asia-south1</text>
+  <g font-size="13">
+    <rect x="380" y="155" width="260" height="34" rx="8" fill="#fff" stroke="#93c5fd"/>
+    <text x="392" y="177" fill="#0f172a"><tspan font-weight="700">planner</tspan> random checks + liveness</text>
+    <rect x="380" y="197" width="122" height="50" rx="8" fill="#fff" stroke="#93c5fd"/>
+    <text x="392" y="218" font-weight="700" fill="#0f172a">auditor</text>
+    <text x="392" y="236" font-size="11" fill="#475569">findings + MM:SS</text>
+    <rect x="518" y="197" width="122" height="50" rx="8" fill="#fff" stroke="#93c5fd"/>
+    <text x="530" y="218" font-weight="700" fill="#0f172a">integrity</text>
+    <text x="530" y="236" font-size="11" fill="#475569">Gemini + rules</text>
+    <text x="510" y="227" font-size="14" font-weight="700" fill="#2563eb" text-anchor="middle">∥</text>
+    <rect x="380" y="255" width="260" height="34" rx="8" fill="#fff" stroke="#93c5fd"/>
+    <text x="392" y="277" fill="#0f172a"><tspan font-weight="700">scorer</tspan> score · coverage · tier · decay</text>
+    <rect x="380" y="297" width="260" height="34" rx="8" fill="#fff" stroke="#93c5fd"/>
+    <text x="392" y="319" fill="#0f172a"><tspan font-weight="700">coach</tspan> fix list EN / HI / OR</text>
+    <rect x="380" y="339" width="260" height="34" rx="8" fill="#fff" stroke="#93c5fd"/>
+    <text x="392" y="361" fill="#0f172a"><tspan font-weight="700">risk</tspan> inspector ranking + reasons</text>
+    <text x="380" y="400" font-size="12" fill="#1d4ed8">orchestrator runs them for every audit</text>
+  </g>
+
+  <!-- Google services -->
+  <rect x="740" y="90" width="190" height="80" rx="14" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="758" y="120" font-size="15" font-weight="700" fill="#78350f">Gemini</text>
+  <text x="758" y="142" font-size="12" fill="#92400e">Vertex AI · Gen AI SDK</text>
+  <text x="758" y="159" font-size="12" fill="#92400e">video in, JSON schema out</text>
+
+  <rect x="740" y="200" width="190" height="70" rx="14" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+  <text x="758" y="230" font-size="15" font-weight="700" fill="#7c2d12">Cloud Firestore</text>
+  <text x="758" y="252" font-size="12" fill="#9a3412">audits · findings · badges</text>
+
+  <rect x="740" y="300" width="190" height="70" rx="14" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+  <text x="758" y="330" font-size="15" font-weight="700" fill="#7c2d12">Cloud Storage</text>
+  <text x="758" y="352" font-size="12" fill="#9a3412">audits/{id}/recording</text>
+
+  <rect x="360" y="470" width="300" height="60" rx="14" fill="#f1f5f9" stroke="#64748b" stroke-width="2"/>
+  <text x="380" y="497" font-size="15" font-weight="700" fill="#0f172a">Cloud Scheduler</text>
+  <text x="380" y="517" font-size="12" fill="#475569">random surprise audits at peak hours (IST)</text>
+
+  <!-- arrows -->
+  <g stroke="#475569" stroke-width="2" fill="none" marker-end="url(#a)">
+    <path d="M280 180 H356"/>
+    <path d="M155 360 V546 H835 V374"/>
+    <path d="M660 135 H736"/>
+    <path d="M660 235 H736"/>
+    <path d="M930 335 C955 335 955 130 934 130" stroke-dasharray="5 4"/>
+    <path d="M510 470 V424"/>
+  </g>
+  <g font-size="11" fill="#334155">
+    <text x="288" y="172">/api/** rewrite</text>
+    <text x="170" y="540">resumable video upload</text>
+    <text x="666" y="153">2 parallel</text>
+    <text x="666" y="166">calls</text>
+    <text x="958" y="200" transform="rotate(90 958 200)">gs:// URI</text>
+    <text x="520" y="462">POST /scheduler/surprise</text>
+  </g>
+</svg>

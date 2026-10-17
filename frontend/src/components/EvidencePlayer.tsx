@@ -50,6 +50,7 @@ export const EvidencePlayer = forwardRef<EvidencePlayerHandle, { path?: string |
           muted
           preload="metadata"
           onError={() => setFailed(true)}
+          onLoadedMetadata={(e) => fixDuration(e.currentTarget)}
           onTimeUpdate={(e) => {
             if (stopAt.current != null && e.currentTarget.currentTime >= stopAt.current) {
               e.currentTarget.pause()
@@ -63,6 +64,20 @@ export const EvidencePlayer = forwardRef<EvidencePlayerHandle, { path?: string |
     )
   },
 )
+
+/**
+ * Videos recorded with MediaRecorder (webm) have no duration in their header, so Chrome reports
+ * Infinity and the scrubber does not work. Seeking far past the end makes the browser compute it.
+ */
+function fixDuration(v: HTMLVideoElement) {
+  if (v.duration !== Infinity) return
+  const restore = () => {
+    v.removeEventListener('durationchange', restore)
+    v.currentTime = 0
+  }
+  v.addEventListener('durationchange', restore)
+  v.currentTime = 1e101
+}
 
 /** A short public clip (3–5 s) that loops between start and end. */
 export function ClipPlayer({ path, startSec, endSec, caption }: { path?: string; startSec: number; endSec: number; caption: string }) {

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import timedelta
+from datetime import datetime, timedelta
 
 from .agents import risk as risk_agent
 from .agents import scorer
@@ -184,7 +184,9 @@ def rescore_audit(store: Store, audit_id: str) -> dict:
     return {**audit, **update}
 
 
-def queue_review(store: Store, *, type_: str, audit: dict, finding_id: str | None = None, detail: str = "") -> str:
+def queue_review(
+    store: Store, *, type_: str, audit: dict, finding_id: str | None = None, detail: str = "", at: datetime | None = None
+) -> str:
     return store.add(
         "reviewQueue",
         {
@@ -194,7 +196,7 @@ def queue_review(store: Store, *, type_: str, audit: dict, finding_id: str | Non
             "restaurantId": audit["restaurantId"],
             "restaurantName": audit.get("restaurantName"),
             "detail": detail,
-            "createdAt": utcnow(),
+            "createdAt": at or utcnow(),
             "status": "open",
         },
         prefix="rq_",

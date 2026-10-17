@@ -40,10 +40,24 @@ Open the link and press **"Start the 2-minute demo tour"**. A guide bar walks yo
 
 No login: the app signs judges in anonymously. Turn Demo Mode off (footer) to use the real camera.
 
+## Screenshots
+
+| Owner: surprise request | Live audit: liveness challenge | Audit report |
+|---|---|---|
+| ![Owner request banner](docs/screenshots/owner-request.png) | ![Live audit](docs/screenshots/live-audit-liveness.png) | ![Audit report](docs/screenshots/report.png) |
+
+| FoodieGo: restaurants | FoodieGo: kitchen badge |
+|---|---|
+| ![FoodieGo list](docs/screenshots/foodiego-list.png) | ![FoodieGo restaurant](docs/screenshots/foodiego-restaurant.png) |
+
+| Inspector: visit first this week | Inspector: review queue |
+|---|---|
+| ![Inspector ranking](docs/screenshots/inspector-ranking.png) | ![Review queue](docs/screenshots/review-queue.png) |
+
 ## Features
 
 - Three audit triggers: `surprise` (platform), `customer` (during a live order), `practice` (never counts).
-- Live Audit: in-app continuous recording (`getUserMedia` + `MediaRecorder`), server-revealed checks, liveness card, GPS, 4-minute limit, spoken prompts.
+- Live Audit: in-app continuous recording (`getUserMedia` + `MediaRecorder`), server-revealed checks, liveness card, GPS, 4-minute limit, prompts read aloud in English or Hindi.
 - **Auditor agent (Gemini)**: per check `pass | fail | not_verified`, reason, `MM:SS` timestamp, confidence, readable labels, evidence clips.
 - **Integrity agent (Gemini + rules)**: liveness, continuous take, same kitchen as reference, activity vs order volume, props, repeated items, location, speed → `clean | suspicious | failed`.
 - **Coach agent (Gemini)**: fix list in English, Hindi and Odia.
@@ -75,6 +89,8 @@ Customers can only request a check on their own active order: 1 per restaurant p
 Gemini is told never to identify people; public clips are 3–5 s of surfaces and equipment from passing checks.
 
 ## Architecture
+
+![KitchenProof architecture](docs/architecture.png)
 
 ```
 Browser (React PWA on Firebase Hosting)

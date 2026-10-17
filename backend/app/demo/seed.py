@@ -60,6 +60,11 @@ REASONS_FAIL = {
     "water_source": "Water filter housing is dirty.",
 }
 
+DISPUTE_REASONS = {
+    "fridge_temp": "The fridge door had just been opened for a delivery; the thermometer reads 4 °C now.",
+    "drains": "The grating was lifted only while the drain was being cleaned.",
+}
+
 # fmt: off
 RESTAURANTS = [
     # id, name, cuisine, rating, area, lat, lng, ordersLastHour, inspectorVisitDaysAgo
@@ -156,7 +161,7 @@ def _seed_audit(store: Store, rng: random.Random, rest: dict, spec: dict, n: int
         findings[-1]["timestamp"] = f"0{len(findings) - 1}:{rng.randint(10, 50)}"
         findings[-1]["disputed"] = cid == spec.get("dispute")
         findings[-1]["dispute"] = (
-            {"reason": "The thermometer was reset after cleaning; it reads 4 °C now.", "at": created + timedelta(hours=2)}
+            {"reason": DISPUTE_REASONS.get(cid, "This was cleaned before the check finished."), "at": created + timedelta(hours=2)}
             if cid == spec.get("dispute")
             else None
         )
@@ -216,10 +221,11 @@ def _seed_audit(store: Store, rng: random.Random, rest: dict, spec: dict, n: int
         },
     )
     audit = store.get("audits", audit_id)
+    queued_at = audit["completedAt"] + timedelta(hours=2)
     if spec.get("dispute"):
-        service.queue_review(store, type_="dispute", audit=audit, finding_id=spec["dispute"], detail=REASONS_FAIL[spec["dispute"]])
+        service.queue_review(store, type_="dispute", audit=audit, finding_id=spec["dispute"], detail=REASONS_FAIL[spec["dispute"]], at=queued_at)
     if integrity_verdict in ("suspicious", "failed"):
-        service.queue_review(store, type_="integrity", audit=audit, detail=", ".join(f["code"] for f in flags))
+        service.queue_review(store, type_="integrity", audit=audit, detail=", ".join(f["code"] for f in flags), at=queued_at)
     if integrity_verdict == "failed":
         service.mark_failed_verification(store, rest["id"])
     if spec.get("dispute") or integrity_verdict != "clean":

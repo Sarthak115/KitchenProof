@@ -174,7 +174,9 @@ export default function AuditReport() {
             )}
           </div>
         )}
-        {flags.length === 0 ? (
+        {!a.integrity ? (
+          <p className="text-sm text-slate-600">The integrity check did not run for this audit.</p>
+        ) : flags.length === 0 ? (
           <p className="text-sm text-emerald-800">No signs of editing or staging were found.</p>
         ) : (
           <ul className="space-y-2">

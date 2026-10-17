@@ -53,12 +53,13 @@ function ReviewCard({ q, onDone }: { q: ReviewItem; onDone: () => void }) {
     }
   }
   const integrity = q.type === 'integrity'
+  const failedVerdict = (q.audit.integrity?.originalVerdict ?? q.audit.integrity?.verdict) === 'failed'
   const flags = (q.audit.integrity?.flags ?? []).filter((f) => f.code !== 'liveness_ok')
   return (
     <li className={`card ${q.status === 'resolved' ? 'opacity-60' : ''}`}>
       <div className="flex flex-wrap items-center gap-2">
-        <span className={`rounded-full px-2.5 py-0.5 text-xs font-bold uppercase ${integrity ? 'bg-amber-100 text-amber-900' : 'bg-sky-100 text-sky-900'}`}>
-          {integrity ? 'Possible staging' : 'Dispute'}
+        <span className={`rounded-full px-2.5 py-0.5 text-xs font-bold uppercase ${!integrity ? 'bg-sky-100 text-sky-900' : failedVerdict ? 'bg-red-100 text-red-900' : 'bg-amber-100 text-amber-900'}`}>
+          {!integrity ? 'Dispute' : failedVerdict ? 'Failed verification' : 'Possible staging'}
         </span>
         <Link to={`/inspector/restaurant/${q.restaurantId}`} className="font-bold hover:underline">
           {q.restaurantName}

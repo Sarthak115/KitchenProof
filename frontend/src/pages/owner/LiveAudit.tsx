@@ -4,6 +4,7 @@ import { Countdown } from '../../components/Countdown'
 import { firebaseEnabled, uploadRecording, watchAuditDoc } from '../../firebase'
 import { api, ApiError } from '../../lib/api'
 import { useConfig } from '../../lib/config'
+import { hindiPrompt } from '../../lib/hindi'
 import { useStoredState } from '../../lib/hooks'
 import { getLocation, openCamera, Recorder, stopStream } from '../../lib/recorder'
 import type { Audit, Instruction } from '../../lib/types'
@@ -29,7 +30,7 @@ export default function LiveAudit() {
   const [deadline, setDeadline] = useState<string | null>(null)
   const [progress, setProgress] = useState(0)
   const [busy, setBusy] = useState(false)
-  const [speak, setSpeak] = useStoredState('kp_speak', true)
+  const [voice, setVoice] = useStoredState<'off' | 'en' | 'hi'>('kp_voice', 'en')
 
   const videoEl = useRef<HTMLVideoElement>(null)
   const stream = useRef<MediaStream | null>(null)
@@ -71,14 +72,17 @@ export default function LiveAudit() {
     }
   }, [phase, auditId, navigate])
 
-  // read the instruction aloud (SHOULD #12)
+  // read the instruction aloud in English or Hindi (SHOULD #12)
   useEffect(() => {
-    if (!instruction || !speak || !('speechSynthesis' in window)) return
+    if (!instruction || voice === 'off' || !('speechSynthesis' in window)) return
+    const hi = voice === 'hi' ? hindiPrompt(instruction) : null
     window.speechSynthesis.cancel()
-    const u = new SpeechSynthesisUtterance(instruction.prompt)
-    u.lang = 'en-IN'
+    const u = new SpeechSynthesisUtterance(hi ?? instruction.prompt)
+    u.lang = hi ? 'hi-IN' : 'en-IN'
+    const match = window.speechSynthesis.getVoices().find((v) => v.lang.replace('_', '-').startsWith(u.lang.slice(0, 2)))
+    if (match) u.voice = match
     window.speechSynthesis.speak(u)
-  }, [instruction, speak])
+  }, [instruction, voice])
 
   async function startCamera() {
     setPhase('starting')
@@ -191,6 +195,11 @@ export default function LiveAudit() {
                 {live ? '✋ Liveness challenge — do this now' : 'Show this now'}
               </div>
               <div className="mt-1 text-xl font-bold leading-snug sm:text-2xl">{instruction.prompt}</div>
+              {voice === 'hi' && hindiPrompt(instruction) && (
+                <div lang="hi" className="mt-1 text-lg font-semibold leading-snug opacity-90">
+                  {hindiPrompt(instruction)}
+                </div>
+              )}
             </div>
           )}
           {phase === 'starting' && <div className="mt-3 rounded-xl bg-black/70 p-3 text-center">Opening camera…</div>}
@@ -201,11 +210,11 @@ export default function LiveAudit() {
           <div className="flex gap-2">
             <button
               type="button"
-              onClick={() => setSpeak(!speak)}
-              className="btn bg-black/60 text-white"
-              aria-label={speak ? 'Mute spoken prompts' : 'Read prompts aloud'}
+              onClick={() => setVoice(voice === 'off' ? 'en' : voice === 'en' ? 'hi' : 'off')}
+              className="btn min-w-[4.5rem] bg-black/60 text-sm text-white"
+              aria-label={`Spoken prompts: ${{ off: 'off', en: 'English', hi: 'Hindi' }[voice]}. Tap to change.`}
             >
-              {speak ? '🔊' : '🔇'}
+              {{ off: '🔇', en: '🔊 EN', hi: '🔊 हि' }[voice]}
             </button>
             <button type="button" onClick={next} disabled={busy || !instruction} className="btn flex-1 bg-white text-xl text-slate-900">
               {busy ? '…' : 'Done — next'}
