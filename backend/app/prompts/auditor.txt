@@ -13,7 +13,9 @@ Rules:
 - Also list any packaged items whose labels, batch numbers or expiry dates you can read
   (observedItems), and whether each looks unopened/full.
 - Also verify the LIVENESS CHALLENGE: did the person do exactly the requested gesture near the
-  requested object, around the stated time? Report what you saw.
+  requested object, around the stated time? Report what you saw. If no gesture appears, set
+  fingersCounted = 0 and nearObject = "none". Liveness confidence is how sure you are of your
+  answer: if you clearly see that no such gesture was made, that is a HIGH confidence answer.
 - For evidenceClips, give one 3 to 5 second segment per check that best shows surfaces or
   equipment for that check (no faces).
 - Today's date is {today}.
