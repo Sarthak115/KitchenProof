@@ -1,0 +1,138 @@
+{
+  "modelId": "cached-demo-result",
+  "auditor": {
+    "findings": [
+      {
+        "checkId": "fridge_segregation",
+        "status": "fail",
+        "reason": "An uncovered raw chicken packet sits on the top shelf directly above a tray of cooked rice.",
+        "timestamp": "00:09",
+        "confidence": 0.92
+      },
+      {
+        "checkId": "handwash",
+        "status": "pass",
+        "reason": "Soap bottle is present and water runs from the tap into a clean basin.",
+        "timestamp": "00:27",
+        "confidence": 0.84
+      },
+      {
+        "checkId": "dustbins",
+        "status": "fail",
+        "reason": "The dustbin lid is open and food waste is spilling over the rim.",
+        "timestamp": "00:45",
+        "confidence": 0.9
+      },
+      {
+        "checkId": "surfaces",
+        "status": "fail",
+        "reason": "The cutting board has dark stains and food residue build-up near the stove.",
+        "timestamp": "01:20",
+        "confidence": 0.85
+      },
+      {
+        "checkId": "handler_hygiene",
+        "status": "not_verified",
+        "reason": "The cook was only shown briefly from behind; head covering could not be confirmed.",
+        "timestamp": "01:39",
+        "confidence": 0.4
+      },
+      {
+        "checkId": "labels_expiry",
+        "status": "pass",
+        "reason": "Two packets show readable expiry dates in 2027.",
+        "timestamp": "01:58",
+        "confidence": 0.8
+      }
+    ],
+    "liveness": {
+      "observed": "A hand holds up three fingers in front of the gas stove.",
+      "fingersCounted": 3,
+      "nearObject": "stove",
+      "timestamp": "01:03",
+      "confidence": 0.88
+    },
+    "observedItems": [
+      {
+        "label": "Fortune Sunflower Oil 1L",
+        "batchOrExpiry": "EXP 03/2027",
+        "state": "opened"
+      },
+      {
+        "label": "Aashirvaad Atta 5kg",
+        "batchOrExpiry": "EXP 01/2027",
+        "state": "opened"
+      }
+    ],
+    "evidenceClips": [
+      {
+        "checkId": "fridge_segregation",
+        "startSec": 7,
+        "endSec": 11
+      },
+      {
+        "checkId": "handwash",
+        "startSec": 25,
+        "endSec": 29
+      },
+      {
+        "checkId": "dustbins",
+        "startSec": 43,
+        "endSec": 47
+      },
+      {
+        "checkId": "surfaces",
+        "startSec": 78,
+        "endSec": 82
+      },
+      {
+        "checkId": "labels_expiry",
+        "startSec": 116,
+        "endSec": 120
+      }
+    ]
+  },
+  "integrity": {
+    "continuousTake": {
+      "ok": true,
+      "detail": "Single continuous handheld take with consistent lighting.",
+      "confidence": 0.9
+    },
+    "sameKitchenAsReference": {
+      "ok": true,
+      "detail": "No reference yet; this becomes the reference.",
+      "confidence": 0.7
+    },
+    "activityMatchesOrders": {
+      "ok": true,
+      "detail": "Pans on the stove, used utensils and waste in the bin show an active kitchen.",
+      "confidence": 0.85
+    },
+    "propsSuspected": {
+      "suspected": false,
+      "detail": "Packs are opened and in use.",
+      "confidence": 0.8
+    },
+    "kitchenSummary": "Compact kitchen with white wall tiles and a steel two-burner gas range on the left. A single-door fridge stands beside a steel handwash sink near the entrance."
+  },
+  "coach": {
+    "en": [
+      "Move the raw chicken to the bottom shelf in a covered tray, below cooked food.",
+      "Put a lid on the dustbin and empty it before it overflows.",
+      "Scrub the cutting board with hot soapy water after every rush.",
+      "Next time, show the cook from the shoulders down so the head covering is visible."
+    ],
+    "hi": [
+      "कच्चे चिकन को ढके हुए ट्रे में सबसे निचली शेल्फ पर रखें, पके हुए खाने के नीचे।",
+      "डस्टबिन पर ढक्कन लगाएं और भरने से पहले खाली करें।",
+      "हर व्यस्त समय के बाद कटिंग बोर्ड को गर्म साबुन वाले पानी से साफ़ करें।",
+      "अगली बार रसोइए को कंधों से नीचे तक दिखाएं ताकि सिर ढका हुआ दिखे।"
+    ],
+    "or": [
+      "କଞ୍ଚା ଚିକେନକୁ ଘୋଡ଼ା ଟ୍ରେରେ ସବୁଠୁ ତଳ ତାକରେ ରଖନ୍ତୁ, ରନ୍ଧା ଖାଦ୍ୟ ତଳେ।",
+      "ଡଷ୍ଟବିନରେ ଢାଙ୍କୁଣି ଲଗାନ୍ତୁ ଏବଂ ଭରିବା ପୂର୍ବରୁ ଖାଲି କରନ୍ତୁ।",
+      "ପ୍ରତି ବ୍ୟସ୍ତ ସମୟ ପରେ କଟିଂ ବୋର୍ଡକୁ ଗରମ ସାବୁନ ପାଣିରେ ସଫା କରନ୍ତୁ।",
+      "ପରଦିନ ରୋଷେଇଆଙ୍କୁ କାନ୍ଧ ତଳୁ ଦେଖାନ୍ତୁ ଯାହାଦ୍ୱାରା ମୁଣ୍ଡ ଘୋଡ଼ଣି ଦେଖାଯିବ।"
+    ]
+  }
+}

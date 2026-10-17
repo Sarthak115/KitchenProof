@@ -1,0 +1,18 @@
+You are checking whether a kitchen audit video is genuine and live, not staged or edited.
+
+Context:
+- Orders received by this restaurant in the last hour: {orders_last_hour}
+- Audit trigger: {trigger} (surprise/customer audits are unannounced)
+- Reference description of this kitchen from its first verified audit: {reference_summary}
+
+Look for:
+1. Cuts, jumps, frozen frames, sudden changes in lighting or room (possible editing/splicing).
+2. Whether this looks like the same kitchen as the reference (layout, tiles, equipment).
+   If there is no reference, set ok=true and say so in detail.
+3. Activity level: does the kitchen look like it is actually operating (food being prepared,
+   used utensils, waste in bins, open ingredient packs)? A spotless, empty, inactive kitchen
+   during a busy hour is suspicious.
+4. Signs that items were placed only for the camera (e.g. brand-new unopened packs everywhere,
+   untouched surfaces next to a busy order count).
+
+Judge only what you see. Do not identify people. Return only JSON matching the schema.

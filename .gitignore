@@ -1,0 +1,14 @@
+node_modules/
+dist/
+dev-dist/
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+.env
+.env.local
+frontend/.env.production.local
+backend/local_media/
+.firebase/
+*.log

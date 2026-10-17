@@ -1,0 +1,132 @@
+{
+  "modelId": "cached-demo-result",
+  "auditor": {
+    "findings": [
+      {
+        "checkId": "fridge_segregation",
+        "status": "pass",
+        "reason": "Raw chicken is in a covered box on the bottom shelf; cooked food is covered on the top shelf.",
+        "timestamp": "00:08",
+        "confidence": 0.9
+      },
+      {
+        "checkId": "handwash",
+        "status": "pass",
+        "reason": "Soap is present, water runs and the basin is clean.",
+        "timestamp": "00:26",
+        "confidence": 0.88
+      },
+      {
+        "checkId": "dustbins",
+        "status": "pass",
+        "reason": "Both dustbins have closed lids and are not overflowing.",
+        "timestamp": "00:44",
+        "confidence": 0.9
+      },
+      {
+        "checkId": "surfaces",
+        "status": "fail",
+        "reason": "Light food residue remains on one corner of the cutting board.",
+        "timestamp": "01:21",
+        "confidence": 0.7
+      },
+      {
+        "checkId": "handler_hygiene",
+        "status": "pass",
+        "reason": "The cook wears a head covering, gloves and a clean apron.",
+        "timestamp": "01:38",
+        "confidence": 0.86
+      },
+      {
+        "checkId": "labels_expiry",
+        "status": "pass",
+        "reason": "Two packets show readable expiry dates in 2027.",
+        "timestamp": "01:57",
+        "confidence": 0.82
+      }
+    ],
+    "liveness": {
+      "observed": "A hand holds up three fingers in front of the gas stove.",
+      "fingersCounted": 3,
+      "nearObject": "stove",
+      "timestamp": "01:02",
+      "confidence": 0.9
+    },
+    "observedItems": [
+      {
+        "label": "Fortune Sunflower Oil 1L",
+        "batchOrExpiry": "EXP 03/2027",
+        "state": "opened"
+      },
+      {
+        "label": "Aashirvaad Atta 5kg",
+        "batchOrExpiry": "EXP 01/2027",
+        "state": "opened"
+      }
+    ],
+    "evidenceClips": [
+      {
+        "checkId": "fridge_segregation",
+        "startSec": 6,
+        "endSec": 10
+      },
+      {
+        "checkId": "handwash",
+        "startSec": 24,
+        "endSec": 28
+      },
+      {
+        "checkId": "dustbins",
+        "startSec": 42,
+        "endSec": 46
+      },
+      {
+        "checkId": "surfaces",
+        "startSec": 79,
+        "endSec": 83
+      },
+      {
+        "checkId": "labels_expiry",
+        "startSec": 116,
+        "endSec": 120
+      }
+    ]
+  },
+  "integrity": {
+    "continuousTake": {
+      "ok": true,
+      "detail": "Single continuous take; lighting and room stay consistent.",
+      "confidence": 0.9
+    },
+    "sameKitchenAsReference": {
+      "ok": true,
+      "detail": "Same tiles, gas range and fridge position as the reference.",
+      "confidence": 0.85
+    },
+    "activityMatchesOrders": {
+      "ok": true,
+      "detail": "Food is being prepared and utensils are in use.",
+      "confidence": 0.85
+    },
+    "propsSuspected": {
+      "suspected": false,
+      "detail": "Packs are opened and partly used.",
+      "confidence": 0.8
+    },
+    "kitchenSummary": "Compact kitchen with white wall tiles and a steel two-burner gas range on the left. A single-door fridge stands beside a steel handwash sink near the entrance."
+  },
+  "coach": {
+    "en": [
+      "Give the cutting board one more scrub at the corners after each rush.",
+      "Keep up the great work on fridge storage and dustbin lids."
+    ],
+    "hi": [
+      "हर व्यस्त समय के बाद कटिंग बोर्ड के कोनों को एक बार और रगड़ कर साफ़ करें।",
+      "फ्रिज भंडारण और डस्टबिन ढक्कन पर अच्छा काम जारी रखें।"
+    ],
+    "or": [
+      "ପ୍ରତି ବ୍ୟସ୍ତ ସମୟ ପରେ କଟିଂ ବୋର୍ଡର କୋଣଗୁଡ଼ିକୁ ଆଉ ଥରେ ଘଷି ସଫା କରନ୍ତୁ।",
+      "ଫ୍ରିଜ ସଂରକ୍ଷଣ ଏବଂ ଡଷ୍ଟବିନ ଢାଙ୍କୁଣିରେ ଭଲ କାମ ଜାରି ରଖନ୍ତୁ।"
+    ]
+  }
+}

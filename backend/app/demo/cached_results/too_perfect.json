@@ -1,0 +1,120 @@
+{
+  "modelId": "cached-demo-result",
+  "auditor": {
+    "findings": [
+      {
+        "checkId": "fridge_segregation",
+        "status": "pass",
+        "reason": "Fridge shelves hold only sealed, unopened packs neatly arranged.",
+        "timestamp": "00:08",
+        "confidence": 0.85
+      },
+      {
+        "checkId": "handwash",
+        "status": "pass",
+        "reason": "Soap is present, water runs and the basin is spotless.",
+        "timestamp": "00:25",
+        "confidence": 0.88
+      },
+      {
+        "checkId": "dustbins",
+        "status": "pass",
+        "reason": "Dustbin lid is closed and the bin appears completely empty.",
+        "timestamp": "00:44",
+        "confidence": 0.9
+      },
+      {
+        "checkId": "surfaces",
+        "status": "pass",
+        "reason": "Counter and cutting boards are spotless with no sign of use.",
+        "timestamp": "01:20",
+        "confidence": 0.9
+      },
+      {
+        "checkId": "handler_hygiene",
+        "status": "pass",
+        "reason": "Person wears a head covering, gloves and a crisp apron.",
+        "timestamp": "01:37",
+        "confidence": 0.8
+      },
+      {
+        "checkId": "labels_expiry",
+        "status": "pass",
+        "reason": "Two brand-new unopened packets show expiry dates in 2027.",
+        "timestamp": "01:57",
+        "confidence": 0.84
+      }
+    ],
+    "liveness": {
+      "observed": "A hand holds up two fingers in front of the fridge.",
+      "fingersCounted": 2,
+      "nearObject": "fridge",
+      "timestamp": "01:02",
+      "confidence": 0.87
+    },
+    "observedItems": [
+      {
+        "label": "Fortune Sunflower Oil 1L",
+        "batchOrExpiry": "B.No 7781 EXP 03/2027",
+        "state": "unopened"
+      },
+      {
+        "label": "Aashirvaad Atta 5kg",
+        "batchOrExpiry": "B.No A221 EXP 01/2027",
+        "state": "unopened"
+      }
+    ],
+    "evidenceClips": [
+      {
+        "checkId": "fridge_segregation",
+        "startSec": 6,
+        "endSec": 10
+      },
+      {
+        "checkId": "handwash",
+        "startSec": 24,
+        "endSec": 28
+      },
+      {
+        "checkId": "dustbins",
+        "startSec": 42,
+        "endSec": 46
+      },
+      {
+        "checkId": "surfaces",
+        "startSec": 78,
+        "endSec": 82
+      }
+    ]
+  },
+  "integrity": {
+    "continuousTake": {
+      "ok": true,
+      "detail": "Single continuous take.",
+      "confidence": 0.9
+    },
+    "sameKitchenAsReference": {
+      "ok": true,
+      "detail": "Layout and equipment match the reference.",
+      "confidence": 0.8
+    },
+    "activityMatchesOrders": {
+      "ok": false,
+      "detail": "No food is being prepared, burners are off, the bin is empty and no utensils are in use",
+      "confidence": 0.86
+    },
+    "propsSuspected": {
+      "suspected": true,
+      "detail": "Every ingredient pack visible is brand-new and unopened, and surfaces look untouched.",
+      "confidence": 0.72
+    },
+    "kitchenSummary": "Compact kitchen with white wall tiles and a steel two-burner gas range on the left. A single-door fridge stands beside a steel handwash sink."
+  },
+  "coach": {
+    "en": [
+      "Great job — keep doing what you are doing."
+    ],
+    "hi": [],
+    "or": []
+  }
+}

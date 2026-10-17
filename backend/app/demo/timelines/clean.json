@@ -1,0 +1,15 @@
+{
+  "sample": "clean",
+  "video": "clean_kitchen.mp4",
+  "mime": "video/mp4",
+  "durationSec": 140,
+  "checks": [
+    {"checkId": "fridge_segregation", "offsetSec": 0},
+    {"checkId": "handwash", "offsetSec": 20},
+    {"checkId": "dustbins", "offsetSec": 40},
+    {"checkId": "surfaces", "offsetSec": 75},
+    {"checkId": "handler_hygiene", "offsetSec": 95},
+    {"checkId": "labels_expiry", "offsetSec": 115}
+  ],
+  "liveness": {"n": 3, "object": "stove", "offsetSec": 60}
+}
