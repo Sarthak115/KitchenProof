@@ -14,9 +14,9 @@ def _bool(name: str, default: bool) -> bool:
 @dataclass(frozen=True)
 class Settings:
     # Gemini
-    gemini_model: str = field(default_factory=lambda: os.getenv("GEMINI_MODEL", "gemini-2.5-flash"))
+    gemini_model: str = field(default_factory=lambda: os.getenv("GEMINI_MODEL", "gemini-3.8-flash"))
     gemini_fallback_model: str = field(
-        default_factory=lambda: os.getenv("GEMINI_FALLBACK_MODEL", "gemini-2.5-flash")
+        default_factory=lambda: os.getenv("GEMINI_FALLBACK_MODEL", "gemini-flash-latest")
     )
     use_vertex: bool = field(default_factory=lambda: _bool("GOOGLE_GENAI_USE_VERTEXAI", False))
     gcp_project: str | None = field(default_factory=lambda: os.getenv("GOOGLE_CLOUD_PROJECT"))

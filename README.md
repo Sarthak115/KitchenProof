@@ -112,7 +112,7 @@ follows the audit status through a Firestore listener.
 
 ## Google tech used
 
-- **Gemini** (newest Flash model in the project, set via `GEMINI_MODEL`; fallback `gemini-2.5-flash`) through the **Google Gen AI SDK** on **Vertex AI**, with structured JSON output (`response_schema`) and native video understanding from Cloud Storage URIs
+- **Gemini** (newest Flash model in the project, `gemini-3.8-flash` by default via `GEMINI_MODEL`; fallback `gemini-flash-latest`) through the **Google Gen AI SDK** on **Vertex AI**, with structured JSON output (`response_schema`) and native video understanding from Cloud Storage URIs
 - **Cloud Run** (API) · **Firebase Hosting** (web app + `/api` rewrite) · **Cloud Firestore** · **Cloud Storage for Firebase** · **Firebase Authentication** (anonymous)
 - **Cloud Scheduler** (optional real surprise audits) · **Google Maps JavaScript API** (optional inspector map)
 
@@ -180,7 +180,7 @@ STORAGE_BUCKET=$BUCKET python scripts/upload_demo_assets.py
 cd backend
 gcloud run deploy kitchenproof-api --source . --region $REGION \
   --service-account $SA --allow-unauthenticated --timeout 300 --memory 1Gi --no-cpu-throttling \
-  --set-env-vars GOOGLE_GENAI_USE_VERTEXAI=true,GOOGLE_CLOUD_PROJECT=$PROJECT_ID,GOOGLE_CLOUD_LOCATION=global,GEMINI_MODEL=<model-id>,DEMO_MODE=true,STORAGE_BUCKET=$BUCKET \
+  --set-env-vars GOOGLE_GENAI_USE_VERTEXAI=true,GOOGLE_CLOUD_PROJECT=$PROJECT_ID,GOOGLE_CLOUD_LOCATION=global,GEMINI_MODEL=gemini-3.8-flash,DEMO_MODE=true,STORAGE_BUCKET=$BUCKET \
   --set-secrets SCHEDULER_SECRET=scheduler-secret:latest,ADMIN_SECRET=admin-secret:latest
 cd ..
 
