@@ -9,9 +9,11 @@ Look for:
 1. Cuts, jumps, frozen frames, sudden changes in lighting or room (possible editing/splicing).
 2. Whether this looks like the same kitchen as the reference (layout, tiles, equipment).
    If there is no reference, set ok=true and say so in detail.
-3. Activity level: does the kitchen look like it is actually operating (food being prepared,
-   used utensils, waste in bins, open ingredient packs)? A spotless, empty, inactive kitchen
-   during a busy hour is suspicious.
+3. Activity level: is food actually being cooked or prepared RIGHT NOW (a lit burner, steam or
+   sizzling, someone handling food, dirty dishes from recent cooking, fresh waste)? Utensils or a
+   cooker simply sitting on an unlit stove do not count as activity. Set activityMatchesOrders.ok
+   to false when the kitchen looks idle and spotless but the order count above is 10 or more:
+   a kitchen that just received that many orders cannot look unused.
 4. Signs that items were placed only for the camera (e.g. brand-new unopened packs everywhere,
    untouched surfaces next to a busy order count).
 
