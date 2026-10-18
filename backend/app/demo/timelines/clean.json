@@ -2,14 +2,32 @@
   "sample": "clean",
   "video": "clean_kitchen.mp4",
   "mime": "video/mp4",
-  "durationSec": 72,
+  "durationSec": 61,
   "checks": [
-    {"checkId": "fridge_segregation", "offsetSec": 0},
-    {"checkId": "handwash", "offsetSec": 15},
-    {"checkId": "dustbins", "offsetSec": 24},
-    {"checkId": "surfaces", "offsetSec": 33},
-    {"checkId": "dry_storage", "offsetSec": 51},
-    {"checkId": "labels_expiry", "offsetSec": 60}
+    {
+      "checkId": "fridge_segregation",
+      "offsetSec": 0
+    },
+    {
+      "checkId": "handwash",
+      "offsetSec": 15
+    },
+    {
+      "checkId": "dustbins",
+      "offsetSec": 24
+    },
+    {
+      "checkId": "surfaces",
+      "offsetSec": 33
+    },
+    {
+      "checkId": "dry_storage",
+      "offsetSec": 51
+    }
   ],
-  "liveness": {"n": 3, "object": "stove", "offsetSec": 39}
+  "liveness": {
+    "n": 3,
+    "object": "stove",
+    "offsetSec": 39
+  }
 }

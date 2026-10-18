@@ -94,11 +94,24 @@ def generate_json(prompt: str, schema: Any, video=None, model: str | None = None
         models.append(settings.gemini_fallback_model)
 
     last_err: Exception | None = None
-    for model_id in models:
-        try:
-            resp = client().models.generate_content(model=model_id, contents=contents, config=config)
-            return json.loads(resp.text), model_id
-        except Exception as err:  # noqa: BLE001 - try the fallback model, then surface the error
-            log.warning("Gemini call failed on %s: %s", model_id, err)
-            last_err = err
+    # Each model gets a few tries: "high demand" (503) and rate-limit (429) errors are usually brief.
+    for attempt, wait in enumerate(RETRY_WAITS):
+        for model_id in models:
+            try:
+                resp = client().models.generate_content(model=model_id, contents=contents, config=config)
+                return json.loads(resp.text), model_id
+            except Exception as err:  # noqa: BLE001 - try the fallback model, then surface the error
+                log.warning("Gemini call failed on %s (attempt %d): %s", model_id, attempt + 1, err)
+                last_err = err
+        if not _is_transient(last_err) or wait is None:
+            break
+        time.sleep(wait)
     raise RuntimeError(f"Gemini failed: {last_err}") from last_err
+
+
+RETRY_WAITS = (4, 10, None)
+
+
+def _is_transient(err: Exception | None) -> bool:
+    code = getattr(err, "code", None)
+    return code in (429, 500, 503) or "UNAVAILABLE" in str(err) or "RESOURCE_EXHAUSTED" in str(err)
