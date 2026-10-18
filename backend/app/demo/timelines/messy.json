@@ -2,14 +2,13 @@
   "sample": "messy",
   "video": "messy_kitchen.mp4",
   "mime": "video/mp4",
-  "durationSec": 140,
+  "durationSec": 93,
   "checks": [
     {"checkId": "fridge_segregation", "offsetSec": 0},
-    {"checkId": "handwash", "offsetSec": 20},
-    {"checkId": "dustbins", "offsetSec": 40},
-    {"checkId": "surfaces", "offsetSec": 75},
-    {"checkId": "handler_hygiene", "offsetSec": 95},
-    {"checkId": "labels_expiry", "offsetSec": 115}
+    {"checkId": "handwash", "offsetSec": 21},
+    {"checkId": "dustbins", "offsetSec": 30},
+    {"checkId": "surfaces", "offsetSec": 54},
+    {"checkId": "labels_expiry", "offsetSec": 77}
   ],
-  "liveness": {"n": 3, "object": "stove", "offsetSec": 60}
+  "liveness": {"n": 5, "object": "stove", "offsetSec": 39}
 }

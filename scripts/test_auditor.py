@@ -3,7 +3,7 @@
 
 Usage (from the repo root):
   # AI Studio key (simplest):
-  GEMINI_API_KEY=... python scripts/test_auditor.py demo-assets/messy_kitchen.mp4
+  GEMINI_API_KEY=... python scripts/test_auditor.py frontend/public/demo/messy_kitchen.mp4
   # or Vertex AI with a gs:// video:
   GOOGLE_GENAI_USE_VERTEXAI=true GOOGLE_CLOUD_PROJECT=my-proj python scripts/test_auditor.py gs://bucket/demo-assets/messy_kitchen.mp4
 

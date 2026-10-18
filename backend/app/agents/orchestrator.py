@@ -32,7 +32,7 @@ def sample_video_ref(sample: dict) -> str:
         return f"gs://{settings.storage_bucket}/demo-assets/{sample['video']}"
     import os
 
-    return os.path.join(os.getenv("DEMO_ASSETS_DIR", "../demo-assets"), sample["video"])
+    return os.path.join(os.getenv("DEMO_ASSETS_DIR", "../frontend/public/demo"), sample["video"])
 
 
 def resolve_video_ref(video_path: str) -> str:
