@@ -68,7 +68,7 @@ DISPUTE_REASONS = {
 # fmt: off
 RESTAURANTS = [
     # id, name, cuisine, rating, area, lat, lng, ordersLastHour, inspectorVisitDaysAgo
-    ("r01", "Kalinga Biryani House", "Biryani · Mughlai", 4.3, "Saheed Nagar", 20.2961, 85.8445, 14, None),
+    ("r01", "Kalinga Biryani House", "Biryani · Mughlai", 4.3, "Saheed Nagar", 20.2961, 85.8445, 6, None),
     ("r02", "Odisha Rasoi", "Odia thali", 4.5, "Old Town", 20.2376, 85.8338, 9, None),
     ("r03", "Chhena Poda Corner", "Sweets · Snacks", 4.6, "Kharavela Nagar", 20.2706, 85.8400, 6, 40),
     ("r04", "Mahanadi Fish Fry", "Seafood", 4.1, "Nayapalli", 20.2905, 85.8150, 11, None),

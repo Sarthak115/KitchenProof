@@ -1,15 +1,33 @@
 {
   "sample": "too_perfect",
-  "video": "too_perfect_kitchen.mp4",
+  "video": "clean_kitchen.mp4",
   "mime": "video/mp4",
-  "durationSec": 140,
+  "durationSec": 61,
   "checks": [
-    {"checkId": "fridge_segregation", "offsetSec": 0},
-    {"checkId": "handwash", "offsetSec": 20},
-    {"checkId": "dustbins", "offsetSec": 40},
-    {"checkId": "surfaces", "offsetSec": 75},
-    {"checkId": "handler_hygiene", "offsetSec": 95},
-    {"checkId": "labels_expiry", "offsetSec": 115}
+    {
+      "checkId": "fridge_segregation",
+      "offsetSec": 0
+    },
+    {
+      "checkId": "handwash",
+      "offsetSec": 15
+    },
+    {
+      "checkId": "dustbins",
+      "offsetSec": 24
+    },
+    {
+      "checkId": "surfaces",
+      "offsetSec": 33
+    },
+    {
+      "checkId": "dry_storage",
+      "offsetSec": 51
+    }
   ],
-  "liveness": {"n": 2, "object": "fridge", "offsetSec": 60}
+  "liveness": {
+    "n": 3,
+    "object": "stove",
+    "offsetSec": 39
+  }
 }

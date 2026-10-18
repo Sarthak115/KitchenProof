@@ -14,7 +14,7 @@ type Phase = 'intro' | 'starting' | 'recording' | 'uploading' | 'analyzing' | 'e
 const SAMPLES = [
   { id: 'messy', label: 'Messy kitchen', hint: 'Uncovered food in the fridge, dishes in the sink, open waste bag, expired ghee' },
   { id: 'clean', label: 'Clean kitchen', hint: 'Same kitchen after fixing the problems' },
-  { id: 'too_perfect', label: 'Too-perfect kitchen', hint: 'Spotless and inactive during a busy hour (example result, no video recorded)' },
+  { id: 'too_perfect', label: 'Too-perfect kitchen', hint: 'The same clean video, but during a busy hour (25 orders): spotless and idle looks staged' },
 ] as const
 
 const FINAL = ['scored', 'inconclusive', 'flagged', 'under_review', 'resolved']

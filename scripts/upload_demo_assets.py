@@ -14,7 +14,7 @@ from pathlib import Path
 from google.cloud import storage
 
 ROOT = Path(__file__).resolve().parent.parent
-FILES = ["messy_kitchen.mp4", "clean_kitchen.mp4", "too_perfect_kitchen.mp4"]
+FILES = ["messy_kitchen.mp4", "clean_kitchen.mp4"]  # too_perfect reuses clean_kitchen.mp4
 
 
 def main() -> None:

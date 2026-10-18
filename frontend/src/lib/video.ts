@@ -3,7 +3,8 @@ import { firebaseEnabled, storageUrl } from '../firebase'
 const SAMPLE_FILES: Record<string, string> = {
   messy: '/demo/messy_kitchen.mp4',
   clean: '/demo/clean_kitchen.mp4',
-  too_perfect: '/demo/too_perfect_kitchen.mp4',
+  // the same clean video, judged during a busy hour
+  too_perfect: '/demo/clean_kitchen.mp4',
 }
 
 /** Map a stored videoPath to a playable URL. */
