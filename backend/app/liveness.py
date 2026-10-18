@@ -4,6 +4,14 @@ import random
 
 OBJECTS = ["stove", "fridge", "sink", "gas cylinder"]
 
+# Words Gemini may use for each object ("Hand placed against the refrigerator door")
+SYNONYMS = {
+    "stove": ["stove", "burner", "cooktop", "hob", "gas", "chulha", "range"],
+    "fridge": ["fridge", "refrigerator", "freezer", "cooler"],
+    "sink": ["sink", "basin", "tap", "faucet", "washbasin"],
+    "gas cylinder": ["cylinder", "lpg", "gas"],
+}
+
 
 def make_challenge(rng: random.Random, objects: list[str] | None = None) -> dict:
     """`objects`: the restaurant's own list of things it has (e.g. no gas cylinder in view)."""
@@ -18,5 +26,4 @@ def matches(expected: dict, fingers_counted: int | None, near_object: str | None
         return False
     near = (near_object or "").lower()
     want = expected["object"].lower()
-    # "gas cylinder" may be reported as "cylinder" or "gas"
-    return want in near or any(word in near for word in want.split())
+    return any(word in near for word in SYNONYMS.get(want, want.split()))

@@ -205,3 +205,13 @@ def test_check_profile_limits_checks_and_gesture_objects():
     for _ in range(30):
         ids = planner.pick_checks(rng, has_active_order=False, allowed=big)
         assert len(ids) == 6 and set(ids) <= set(big)
+
+
+def test_liveness_object_synonyms():
+    from app.liveness import matches
+
+    assert matches({"n": 5, "object": "fridge"}, 5, "Hand placed against the refrigerator door")
+    assert matches({"n": 3, "object": "stove"}, 3, "black gas stove")
+    assert matches({"n": 2, "object": "sink"}, 2, "steel basin")
+    assert not matches({"n": 5, "object": "fridge"}, 5, "next to the stove")
+    assert not matches({"n": 5, "object": "fridge"}, 4, "fridge")
