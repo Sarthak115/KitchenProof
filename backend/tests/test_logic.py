@@ -152,3 +152,37 @@ def test_clamp_clips_inside_video():
     out = clamp_clips(clips, 93)
     assert out[0] == {"checkId": "a", "startSec": 90, "endSec": 93}
     assert out[1] == clips[1]
+
+
+def test_gemini_client_created_once_across_threads(monkeypatch):
+    """Parallel auditor + integrity calls must share one client (a replaced client gets closed)."""
+    import sys
+    import threading
+    import time
+    import types
+
+    from app import gemini
+
+    created = []
+
+    class FakeClient:
+        def __init__(self, **kw):
+            time.sleep(0.05)  # widen the race window
+            created.append(self)
+
+    fake = types.ModuleType("google.genai")
+    fake.Client = FakeClient
+    monkeypatch.setitem(sys.modules, "google.genai", fake)
+    import google
+
+    monkeypatch.setattr(google, "genai", fake, raising=False)
+    monkeypatch.setattr(gemini, "_client", None)
+    monkeypatch.setattr(gemini, "available", lambda: True)
+
+    got = []
+    threads = [threading.Thread(target=lambda: got.append(gemini.client())) for _ in range(8)]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
+    assert len(created) == 1 and all(c is created[0] for c in got)

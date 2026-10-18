@@ -11,6 +11,7 @@ import json
 import logging
 import mimetypes
 import os
+import threading
 import time
 from typing import Any
 
@@ -19,6 +20,7 @@ from .config import settings
 log = logging.getLogger(__name__)
 
 _client = None
+_client_lock = threading.Lock()
 
 
 class GeminiUnavailable(RuntimeError):
@@ -32,19 +34,22 @@ def available() -> bool:
 
 
 def client():
+    """One shared client. The auditor and integrity agents call Gemini in parallel threads; without
+    the lock both could create a client, and the replaced one is closed while still in use."""
     global _client
-    if _client is None:
-        if not available():
-            raise GeminiUnavailable("Gemini is not configured (set GOOGLE_GENAI_USE_VERTEXAI or GEMINI_API_KEY)")
-        from google import genai
+    with _client_lock:
+        if _client is None:
+            if not available():
+                raise GeminiUnavailable("Gemini is not configured (set GOOGLE_GENAI_USE_VERTEXAI or GEMINI_API_KEY)")
+            from google import genai
 
-        if settings.use_vertex:
-            _client = genai.Client(
-                vertexai=True, project=settings.gcp_project, location=settings.gcp_location
-            )
-        else:
-            _client = genai.Client(api_key=settings.gemini_api_key)
-    return _client
+            if settings.use_vertex:
+                _client = genai.Client(
+                    vertexai=True, project=settings.gcp_project, location=settings.gcp_location
+                )
+            else:
+                _client = genai.Client(api_key=settings.gemini_api_key)
+        return _client
 
 
 def video_part(ref: str, mime_type: str):

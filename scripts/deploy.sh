@@ -50,7 +50,7 @@ step "6/8 Deploy the API to Cloud Run (builds the container; 3-5 minutes)"
 gcloud run deploy kitchenproof-api --source backend --region "$REGION" \
   --service-account "$SA" --allow-unauthenticated --timeout 300 --memory 1Gi --no-cpu-throttling \
   --min-instances 0 --max-instances 3 \
-  --set-env-vars "GOOGLE_GENAI_USE_VERTEXAI=true,GOOGLE_CLOUD_PROJECT=$PROJECT_ID,GOOGLE_CLOUD_LOCATION=global,GEMINI_MODEL=$GEMINI_MODEL,DEMO_MODE=true,STORAGE_BUCKET=$BUCKET,CUSTOMER_CHECKS_PER_DAY=25" \
+  --set-env-vars "GOOGLE_GENAI_USE_VERTEXAI=true,GOOGLE_CLOUD_PROJECT=$PROJECT_ID,GOOGLE_CLOUD_LOCATION=global,GEMINI_MODEL=$GEMINI_MODEL,GEMINI_FALLBACK_MODEL=gemini-3.5-flash,DEMO_MODE=true,STORAGE_BUCKET=$BUCKET,CUSTOMER_CHECKS_PER_DAY=25" \
   --set-secrets "SCHEDULER_SECRET=scheduler-secret:latest,ADMIN_SECRET=admin-secret:latest"
 
 step "7/8 Build the web app"
