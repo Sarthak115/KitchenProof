@@ -6,7 +6,7 @@ Google Cloud AI Builder Cup 2026 — theme: *Retail & Commerce — Intelligent C
 > *"We can't stop someone faking one video. KitchenProof makes faking it every day, at random times,
 > while real orders are cooking, harder than just keeping the kitchen clean."*
 
-**Demo:** `https://<your-project>.web.app/tour` · *(add the deployed link, demo video and deck here)*
+**Live demo:** https://kitchenproof.web.app (guided tour: https://kitchenproof.web.app/tour)
 
 ---
 
