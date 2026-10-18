@@ -3,7 +3,7 @@ import type { Severity } from './types'
 
 export const CHECKS: Record<string, { label: string; severity: Severity }> = {
   pests: { label: 'No pests', severity: 'critical' },
-  fridge_segregation: { label: 'Fridge: raw below cooked', severity: 'critical' },
+  fridge_segregation: { label: 'Fridge: covered, raw below cooked', severity: 'critical' },
   fridge_temp: { label: 'Fridge at 5 °C or colder', severity: 'high' },
   handwash: { label: 'Handwash sink with soap', severity: 'high' },
   handler_hygiene: { label: 'Cook hygiene (cap, gloves, apron)', severity: 'high' },
