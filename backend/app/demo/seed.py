@@ -5,6 +5,7 @@ All names and data are fictional.
 
 from __future__ import annotations
 
+import os
 import random
 from datetime import timedelta
 
@@ -16,6 +17,22 @@ from ..prompts.version import PROMPT_VERSION
 from ..timeutil import utcnow
 
 HERO_ID = "r01"  # the owner restaurant used by the guided tour
+
+# The team's own kitchen stands in for the hero restaurant in live camera demos. Its check profile lists
+# only what that kitchen can physically show (no floor drain, licence board, thermometer or pest
+# certificate); the order of checks and the liveness gesture stay random.
+HERO_CHECK_PROFILE = ["fridge_segregation", "handwash", "dustbins", "surfaces", "dry_storage", "labels_expiry"]
+HERO_LIVENESS_OBJECTS = ["stove", "fridge", "sink"]
+
+
+def _demo_kitchen_geo(default: dict) -> dict:
+    """DEMO_KITCHEN_LATLNG="lat;lng" registers the real kitchen's location so the 200 m check passes."""
+    raw = os.getenv("DEMO_KITCHEN_LATLNG", "")
+    try:
+        lat, lng = (float(v) for v in raw.replace(",", ";").split(";"))
+        return {"lat": lat, "lng": lng}
+    except ValueError:
+        return default
 
 COLLECTIONS = ["restaurants", "orders", "audits", "auditSecrets", "reviewQueue", "spotCheckLimits"]
 
@@ -257,6 +274,10 @@ def seed(store: Store) -> dict:
             "riskScore": 0,
             "riskReasons": [],
         }
+        if rid == HERO_ID:
+            rest["checkProfile"] = HERO_CHECK_PROFILE
+            rest["livenessObjects"] = HERO_LIVENESS_OBJECTS
+            rest["geo"] = _demo_kitchen_geo(rest["geo"])
         store.set("restaurants", rid, rest)
         store.set(
             "orders",

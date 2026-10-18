@@ -61,6 +61,7 @@ No login: the app signs judges in anonymously. Turn Demo Mode off (footer) to us
 ## Features
 
 - Three audit triggers: `surprise` (platform), `customer` (during a live order), `practice` (never counts).
+- Per-kitchen check profile: a kitchen is only asked for checks it can physically show (the demo kitchen, Kalinga Biryani House, is the team's own kitchen: fridge, sink, dustbin, counter, dry storage, labels); order and liveness gesture stay random.
 - Live Audit: in-app continuous recording (`getUserMedia` + `MediaRecorder`), server-revealed checks, liveness card, GPS, 4-minute limit, prompts read aloud in English or Hindi.
 - **Auditor agent (Gemini)**: per check `pass | fail | not_verified`, reason, `MM:SS` timestamp, confidence, readable labels, evidence clips.
 - **Integrity agent (Gemini + rules)**: liveness, continuous take, same kitchen as reference, activity vs order volume, props, repeated items, location, speed → `clean | suspicious | failed`.

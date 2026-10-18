@@ -17,21 +17,42 @@ from ..timeutil import utcnow
 CHECKS_PER_AUDIT = 6
 
 
-def pick_checks(rng: random.Random, has_active_order: bool, previous: list[str] | None = None) -> list[str]:
-    """1–2 critical + 2–3 high + rest medium/low; order_prep always included with an active order."""
+def pick_checks(
+    rng: random.Random,
+    has_active_order: bool,
+    previous: list[str] | None = None,
+    allowed: list[str] | None = None,
+) -> list[str]:
+    """1–2 critical + 2–3 high + rest medium/low; order_prep always included with an active order.
+
+    `allowed` is the restaurant's check profile: the checks its kitchen can physically show (a home-style
+    kitchen may have no floor drain or licence board). With six or fewer allowed checks, all of them are
+    used in a random order; otherwise the severity mix is drawn from the allowed ones only.
+    """
+    if allowed:
+        pool = [c for c in dict.fromkeys(allowed) if c in C.CHECKS and (c != "order_prep" or has_active_order)]
+        if len(pool) <= CHECKS_PER_AUDIT:
+            rng.shuffle(pool)
+            return pool
+    else:
+        pool = list(C.CHECKS)
+
+    def bucket(*severities: str, exclude: set[str] = frozenset()) -> list[str]:
+        return [c for sev in severities for c in C.by_severity(sev, exclude=set(exclude)) if c in pool]
+
     previous_set = set(previous or [])
     for _ in range(20):
-        n_crit = rng.choice([1, 2])
-        n_high = rng.choice([2, 3])
-        n_rest = CHECKS_PER_AUDIT - n_crit - n_high
+        crit, high = bucket("critical"), bucket("high", exclude={"order_prep"})
+        n_crit = min(rng.choice([1, 2]), len(crit))
+        n_high = min(rng.choice([2, 3]), len(high) + (1 if has_active_order and "order_prep" in pool else 0))
 
-        chosen = rng.sample(C.by_severity("critical"), n_crit)
-        high_pool = C.by_severity("high", exclude={"order_prep"})
-        if has_active_order:
-            chosen += ["order_prep"] + rng.sample(high_pool, n_high - 1)
+        chosen = rng.sample(crit, n_crit)
+        if has_active_order and "order_prep" in pool:
+            chosen += ["order_prep"] + rng.sample(high, min(n_high - 1, len(high)))
         else:
-            chosen += rng.sample(high_pool, n_high)
-        chosen += rng.sample(C.by_severity("medium") + C.by_severity("low"), n_rest)
+            chosen += rng.sample(high, min(n_high, len(high)))
+        rest = [c for c in bucket("medium", "low") if c not in chosen]
+        chosen += rng.sample(rest, min(CHECKS_PER_AUDIT - len(chosen), len(rest)))
 
         rng.shuffle(chosen)
         if set(chosen) != previous_set:
@@ -58,8 +79,10 @@ def plan_audit(
     """Return (audit document, secrets document)."""
     rng = rng or random.SystemRandom()
     now = utcnow()
-    check_ids = pick_checks(rng, has_active_order=bool(order_id), previous=previous_checks)
-    challenge = make_challenge(rng)
+    check_ids = pick_checks(
+        rng, has_active_order=bool(order_id), previous=previous_checks, allowed=restaurant.get("checkProfile")
+    )
+    challenge = make_challenge(rng, restaurant.get("livenessObjects"))
     sequence = build_sequence(rng, check_ids)
 
     audit = {

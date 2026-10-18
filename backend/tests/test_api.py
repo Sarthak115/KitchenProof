@@ -27,11 +27,11 @@ def test_seed_has_varied_data(store):
 
 def test_live_audit_flow_hides_plan_and_reveals_in_order(store):
     c = client(store)
-    r = c.post("/api/inspector/surprise", json={"restaurantId": "r01"}).json()
+    r = c.post("/api/inspector/surprise", json={"restaurantId": "r02"}).json()
     aid = r["auditId"]
     audit = c.get(f"/api/audits/{aid}").json()
     assert "plannedChecks" not in audit and audit["revealedChecks"] == []
-    start = c.post(f"/api/audits/{aid}/start", json={"gps": {"lat": 20.2961, "lng": 85.8445}}).json()
+    start = c.post(f"/api/audits/{aid}/start", json={"gps": {"lat": 20.2376, "lng": 85.8338}}).json()
     seen = [start["instruction"]]
     idx = 0
     while True:
@@ -42,7 +42,7 @@ def test_live_audit_flow_hides_plan_and_reveals_in_order(store):
         idx += 1
     kinds = [s["kind"] for s in seen]
     assert kinds.count("liveness") == 1 and kinds.count("check") == 6
-    assert any(s.get("checkId") == "order_prep" for s in seen)  # hero has an active order
+    assert any(s.get("checkId") == "order_prep" for s in seen)  # r02 has an active order
     audit = c.get(f"/api/audits/{aid}").json()
     assert len(audit["revealedChecks"]) == 6 and audit["liveness"]["prompt"].startswith("Hold up")
     assert audit["distanceFromRegisteredM"] == 0
@@ -152,3 +152,21 @@ def test_reaudit_for_inconclusive(store):
     assert res["auditId"] != aid
     assert c.get(f"/api/audits/{res['auditId']}").json()["trigger"] == "surprise"
     assert c.post(f"/api/audits/{aid}/reaudit").json()["auditId"] == res["auditId"]
+
+
+def test_demo_kitchen_uses_its_check_profile(store):
+    c = client(store)
+    aid = c.post("/api/inspector/surprise", json={"restaurantId": "r01"}).json()["auditId"]
+    first = c.post(f"/api/audits/{aid}/start", json={}).json()["instruction"]
+    seen = [first]
+    idx = 0
+    while True:
+        res = c.post(f"/api/audits/{aid}/advance", json={"offsetSec": 10 * (idx + 1), "fromIndex": idx}).json()
+        if res["done"]:
+            break
+        seen.append(res["instruction"])
+        idx += 1
+    checks = {s["checkId"] for s in seen if s["kind"] == "check"}
+    assert checks == set(demo_seed.HERO_CHECK_PROFILE)
+    gesture = next(s for s in seen if s["kind"] == "liveness")["prompt"]
+    assert any(o in gesture for o in demo_seed.HERO_LIVENESS_OBJECTS)

@@ -8,6 +8,8 @@ PROJECT_ID="${PROJECT_ID:-kitchenproof}"
 REGION="${REGION:-asia-south1}"
 BUCKET="${BUCKET:-kitchenproof.firebasestorage.app}"
 GEMINI_MODEL="${GEMINI_MODEL:-gemini-3.8-flash}"
+# Optional: your real kitchen's location for live camera demos, as "lat;lng"
+DEMO_KITCHEN_LATLNG="${DEMO_KITCHEN_LATLNG:-}"
 SA="kitchenproof-api@${PROJECT_ID}.iam.gserviceaccount.com"
 
 step() { printf '\n\033[1;36m==> %s\033[0m\n' "$*"; }
@@ -50,7 +52,7 @@ step "6/8 Deploy the API to Cloud Run (builds the container; 3-5 minutes)"
 gcloud run deploy kitchenproof-api --source backend --region "$REGION" \
   --service-account "$SA" --allow-unauthenticated --timeout 300 --memory 1Gi --no-cpu-throttling \
   --min-instances 0 --max-instances 3 \
-  --set-env-vars "GOOGLE_GENAI_USE_VERTEXAI=true,GOOGLE_CLOUD_PROJECT=$PROJECT_ID,GOOGLE_CLOUD_LOCATION=global,GEMINI_MODEL=$GEMINI_MODEL,GEMINI_FALLBACK_MODEL=gemini-3.5-flash,DEMO_MODE=true,STORAGE_BUCKET=$BUCKET,CUSTOMER_CHECKS_PER_DAY=25" \
+  --set-env-vars "GOOGLE_GENAI_USE_VERTEXAI=true,GOOGLE_CLOUD_PROJECT=$PROJECT_ID,GOOGLE_CLOUD_LOCATION=global,GEMINI_MODEL=$GEMINI_MODEL,GEMINI_FALLBACK_MODEL=gemini-3.5-flash,DEMO_MODE=true,STORAGE_BUCKET=$BUCKET,CUSTOMER_CHECKS_PER_DAY=25,DEMO_KITCHEN_LATLNG=$DEMO_KITCHEN_LATLNG" \
   --set-secrets "SCHEDULER_SECRET=scheduler-secret:latest,ADMIN_SECRET=admin-secret:latest"
 
 step "7/8 Build the web app"

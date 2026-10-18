@@ -186,3 +186,22 @@ def test_gemini_client_created_once_across_threads(monkeypatch):
     for t in threads:
         t.join()
     assert len(created) == 1 and all(c is created[0] for c in got)
+
+
+def test_check_profile_limits_checks_and_gesture_objects():
+    from app.liveness import make_challenge
+
+    rng = random.Random(7)
+    profile = ["fridge_segregation", "handwash", "dustbins", "surfaces", "dry_storage", "labels_expiry"]
+    orders = set()
+    for _ in range(30):
+        ids = planner.pick_checks(rng, has_active_order=True, allowed=profile)
+        assert sorted(ids) == sorted(profile)  # only what the kitchen has; no order_prep
+        orders.add(tuple(ids))
+        assert make_challenge(rng, ["stove", "fridge"])["object"] in ("stove", "fridge")
+    assert len(orders) > 1  # order is still random
+
+    big = list(C.CHECKS)[:12]
+    for _ in range(30):
+        ids = planner.pick_checks(rng, has_active_order=False, allowed=big)
+        assert len(ids) == 6 and set(ids) <= set(big)
