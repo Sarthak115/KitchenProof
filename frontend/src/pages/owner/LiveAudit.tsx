@@ -12,9 +12,9 @@ import type { Audit, Instruction } from '../../lib/types'
 type Phase = 'intro' | 'starting' | 'recording' | 'uploading' | 'analyzing' | 'error'
 
 const SAMPLES = [
-  { id: 'messy', label: 'Messy kitchen', hint: 'Raw meat above cooked food, open dustbin, dirty counter' },
+  { id: 'messy', label: 'Messy kitchen', hint: 'Uncovered food in the fridge, dishes in the sink, open waste bag, expired ghee' },
   { id: 'clean', label: 'Clean kitchen', hint: 'Same kitchen after fixing the problems' },
-  { id: 'too_perfect', label: 'Too-perfect kitchen', hint: 'Spotless and inactive during a busy hour' },
+  { id: 'too_perfect', label: 'Too-perfect kitchen', hint: 'Spotless and inactive during a busy hour (example result, no video recorded)' },
 ] as const
 
 const FINAL = ['scored', 'inconclusive', 'flagged', 'under_review', 'resolved']

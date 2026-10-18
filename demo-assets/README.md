@@ -1,18 +1,15 @@
 # Demo assets
 
-The team records three 2–3 minute phone videos (720p) here, each following the fixed
-instruction timeline in `backend/app/demo/timelines/*.json` (the backend loads timelines from there
-because Cloud Run builds only the `backend/` folder):
+The team's sample kitchen videos live in `frontend/public/demo/` so Firebase Hosting can serve them
+for playback. `scripts/upload_demo_assets.py` copies them to `gs://$STORAGE_BUCKET/demo-assets/`
+so Gemini on Vertex AI can read them. The backend loads each video's instruction timeline from
+`backend/app/demo/timelines/*.json` (Cloud Run builds only the `backend/` folder).
 
-| File | Timeline | Content |
-|---|---|---|
-| `messy_kitchen.mp4` | `messy.json` | raw chicken packet on the top shelf above cooked food, open dustbin, dirty counter |
-| `clean_kitchen.mp4` | `clean.json` | same kitchen with the problems fixed |
-| `too_perfect_kitchen.mp4` | `too_perfect.json` | spotless, nothing cooking, brand-new unopened packs (used with a high order count) |
+| Video | Length | Timeline (seconds) | Content |
+|---|---|---|---|
+| `messy_kitchen.mp4` | 93 s | fridge 0 · sink 21 · dustbin 30 · ✋ 5 fingers at the stove 39 · board/counter 54 · labels 77 | uncovered food in the fridge, dishes in the sink, open waste bag, stained board, expired ghee |
+| `clean_kitchen.mp4` | 72 s | fridge 0 · sink 15 · dustbin 24 · stove 33 · ✋ 3 fingers at the stove 39 · shelves 51 · labels 60 | same kitchen after fixing the problems |
+| `too_perfect_kitchen.mp4` | — | not recorded | the demo uses an example result for this sample |
 
-Timeline (seconds from start): fridge shelves 0 · handwash 20 · dustbins 40 · **liveness 60**
-(3 fingers at the stove; 2 fingers at the fridge for too-perfect) · counter & boards 75 · cook from
-the shoulders down 95 · two packet labels 115 · stop at ~140.
-
-Then run `scripts/upload_demo_assets.py`. Videos are git-ignored only if you add them to
-`.gitignore`; keep each under ~50 MB if you commit them.
+`backend/app/demo/cached_results/` holds gemini-3.8-flash's real output for the recorded videos.
+It is shown (with a "cached result" note) only if Gemini is unavailable during a demo.
