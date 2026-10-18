@@ -35,6 +35,19 @@ def sample_video_ref(sample: dict) -> str:
     return os.path.join(os.getenv("DEMO_ASSETS_DIR", "../frontend/public/demo"), sample["video"])
 
 
+def clamp_clips(clips: list[dict], duration: float | None) -> list[dict]:
+    """Gemini sometimes places a clip past the end of the video; keep clips inside it."""
+    if not duration:
+        return clips
+    out = []
+    for c in clips:
+        end = min(c["endSec"], duration)
+        start = max(0.0, min(c["startSec"], end - 3))
+        if end > start:
+            out.append({**c, "startSec": start, "endSec": end})
+    return out
+
+
 def resolve_video_ref(video_path: str) -> str:
     """Map a stored videoPath to something Gemini can read."""
     if video_path.startswith("gs://"):
@@ -159,7 +172,7 @@ def analyze(store: Store, audit_id: str, video_ref: str, mime: str, sample: str 
         "integrity": integrity_result,
         "liveness": {**(liveness or {}), "observed": aud.get("liveness")},
         "observedItems": aud.get("observedItems") or [],
-        "evidenceClips": aud.get("evidenceClips") or [],
+        "evidenceClips": clamp_clips(aud.get("evidenceClips") or [], audit.get("durationSec")),
         "checkOrder": check_ids,
         "coach": coach_result,
         "modelId": model_id,

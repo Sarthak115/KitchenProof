@@ -143,3 +143,12 @@ def test_integrity_rules():
     item = {"label": "Oil", "batchOrExpiry": "B1", "state": "unopened"}
     assert verdict(observed_items=[item], item_history=[[item], [item]]) == "suspicious"
     assert verdict(observed_items=[item], item_history=[[item]]) == "clean"
+
+
+def test_clamp_clips_inside_video():
+    from app.agents.orchestrator import clamp_clips
+
+    clips = [{"checkId": "a", "startSec": 120, "endSec": 124}, {"checkId": "b", "startSec": 5, "endSec": 9}]
+    out = clamp_clips(clips, 93)
+    assert out[0] == {"checkId": "a", "startSec": 90, "endSec": 93}
+    assert out[1] == clips[1]
