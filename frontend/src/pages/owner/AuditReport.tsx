@@ -41,7 +41,7 @@ export default function AuditReport() {
   const [lang, setLang] = useState<'en' | 'hi' | 'or'>('en')
   const { data: a, error, reload } = useLive(() => api.audit(auditId), [auditId], {
     intervalMs: 10000,
-    watch: (cb) => watchAuditDoc(auditId, cb),
+    watch: watchAuditDoc(auditId),
   })
   const rest = useLive(() => (a ? api.restaurant(a.restaurantId) : Promise.resolve(null)), [a?.restaurantId], { intervalMs: 0 })
 

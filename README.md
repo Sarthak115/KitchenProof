@@ -146,6 +146,20 @@ npm run dev                             # http://localhost:5173
 Without Firebase config the web app polls the API and uploads recordings through `/api/audits/{id}/upload`.
 The camera needs HTTPS (or `localhost`).
 
+**Full Firebase setup locally** (Auth, Firestore, Storage emulators with the real security rules; needs Java):
+
+```bash
+npx firebase-tools emulators:start --project demo-kitchenproof --only auth,firestore,storage
+# backend, in another terminal:
+DATASTORE=firestore FIRESTORE_EMULATOR_HOST=127.0.0.1:8085 GOOGLE_CLOUD_PROJECT=demo-kitchenproof uvicorn app.main:app --port 8080
+# frontend: put these in frontend/.env.local, then npm run dev
+VITE_USE_EMULATORS=true
+VITE_FIREBASE_API_KEY=fake-api-key
+VITE_FIREBASE_PROJECT_ID=demo-kitchenproof
+VITE_FIREBASE_STORAGE_BUCKET=demo-kitchenproof.appspot.com
+VITE_FIREBASE_APP_ID=1:1:web:1
+```
+
 **Phase 0 check** (does Gemini see the obvious problems?):
 
 ```bash

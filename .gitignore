@@ -13,3 +13,6 @@ backend/local_media/
 .firebase/
 *.log
 *.tsbuildinfo
+firestore-debug.log
+firebase-debug.log
+ui-debug.log

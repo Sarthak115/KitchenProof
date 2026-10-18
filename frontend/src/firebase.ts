@@ -4,9 +4,20 @@
  * realtime updates fall back to polling and uploads go through the API.
  */
 import { initializeApp, type FirebaseApp } from 'firebase/app'
-import { getAuth, signInAnonymously, type Auth } from 'firebase/auth'
-import { collection, doc, getFirestore, onSnapshot, query, where, type Firestore } from 'firebase/firestore'
-import { getDownloadURL, getStorage, ref, uploadBytesResumable, type FirebaseStorage } from 'firebase/storage'
+import { connectAuthEmulator, getAuth, signInAnonymously, type Auth } from 'firebase/auth'
+import {
+  collection,
+  connectFirestoreEmulator,
+  doc,
+  getFirestore,
+  onSnapshot,
+  query,
+  where,
+  type DocumentReference,
+  type Firestore,
+  type Query,
+} from 'firebase/firestore'
+import { connectStorageEmulator, getDownloadURL, getStorage, ref, uploadBytesResumable, type FirebaseStorage } from 'firebase/storage'
 
 const config = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -28,6 +39,13 @@ if (firebaseEnabled) {
   auth = getAuth(app)
   db = getFirestore(app)
   storage = getStorage(app)
+  // Local Firebase emulators (firebase emulators:start), for testing without a cloud project
+  if (import.meta.env.VITE_USE_EMULATORS === 'true') {
+    const host = location.hostname
+    connectAuthEmulator(auth, `http://${host}:9099`, { disableWarnings: true })
+    connectFirestoreEmulator(db, host, 8085)
+    connectStorageEmulator(storage, host, 9199)
+  }
 }
 
 let signInPromise: Promise<string | null> | null = null
@@ -47,25 +65,39 @@ export function ensureSignedIn(): Promise<string | null> {
   return signInPromise
 }
 
-/** Calls `onChange` whenever the audit document changes. Returns an unsubscribe fn, or null without Firebase. */
-export function watchAuditDoc(auditId: string, onChange: () => void): (() => void) | null {
+type Target = DocumentReference | Query
+export type Watcher = (onChange: () => void, onError: () => void) => (() => void) | null
+
+/**
+ * Subscribe to a Firestore document or query after anonymous sign-in has finished (the rules
+ * only let signed-in users read audits). Returns an unsubscribe fn, or null without Firebase.
+ */
+function listen(target: () => Target, onChange: () => void, onError: () => void): (() => void) | null {
   if (!db) return null
-  return onSnapshot(doc(db, 'audits', auditId), onChange, (err) => console.warn('listener', err))
+  let unsub: (() => void) | null = null
+  let cancelled = false
+  ensureSignedIn().then((uid) => {
+    if (cancelled) return
+    if (!uid) return onError()
+    unsub = onSnapshot(target() as never, onChange, (err: unknown) => {
+      console.warn('Firestore listener failed', err)
+      onError()
+    })
+  })
+  return () => {
+    cancelled = true
+    unsub?.()
+  }
 }
 
-export function watchRestaurantAudits(restaurantId: string, onChange: () => void): (() => void) | null {
-  if (!db) return null
-  return onSnapshot(
-    query(collection(db, 'audits'), where('restaurantId', '==', restaurantId)),
-    onChange,
-    (err) => console.warn('listener', err),
-  )
-}
+export const watchAuditDoc = (auditId: string): Watcher => (onChange, onError) =>
+  listen(() => doc(db!, 'audits', auditId), onChange, onError)
 
-export function watchRestaurantDoc(restaurantId: string, onChange: () => void): (() => void) | null {
-  if (!db) return null
-  return onSnapshot(doc(db, 'restaurants', restaurantId), onChange, (err) => console.warn('listener', err))
-}
+export const watchRestaurantAudits = (restaurantId: string): Watcher => (onChange, onError) =>
+  listen(() => query(collection(db!, 'audits'), where('restaurantId', '==', restaurantId)), onChange, onError)
+
+export const watchRestaurantDoc = (restaurantId: string): Watcher => (onChange, onError) =>
+  listen(() => doc(db!, 'restaurants', restaurantId), onChange, onError)
 
 /** Resumable upload to audits/{auditId}/recording.{ext}. Returns the storage path. */
 export async function uploadRecording(auditId: string, blob: Blob, onProgress: (pct: number) => void): Promise<string> {

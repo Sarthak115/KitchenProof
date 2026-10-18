@@ -17,7 +17,7 @@ export default function CustomerRestaurant() {
   const navigate = useNavigate()
   const { demo } = useConfig()
   const [busy, setBusy] = useState(false)
-  const { data: r, error } = useLive(() => api.restaurant(id), [id], { intervalMs: 6000, watch: (cb) => watchRestaurantDoc(id, cb) })
+  const { data: r, error } = useLive(() => api.restaurant(id), [id], { intervalMs: 6000, watch: watchRestaurantDoc(id) })
 
   if (error) return <div className="page">Could not load: {error}</div>
   if (!r) return <div className="page">Loading…</div>

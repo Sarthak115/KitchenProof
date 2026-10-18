@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import type { Watcher } from '../firebase'
 
 /**
  * Fetch data and keep it fresh. With Firebase configured, `watch` subscribes to a Firestore
@@ -7,7 +8,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 export function useLive<T>(
   fetcher: () => Promise<T>,
   deps: unknown[],
-  opts: { intervalMs?: number; watch?: (onChange: () => void) => (() => void) | null } = {},
+  opts: { intervalMs?: number; watch?: Watcher } = {},
 ) {
   const [data, setData] = useState<T | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -27,12 +28,18 @@ export function useLive<T>(
   useEffect(() => {
     setData(null)
     reload()
-    const unsub = opts.watch?.(() => void reload()) ?? null
     const interval = opts.intervalMs ?? 4000
-    const timer = interval > 0 ? window.setInterval(reload, unsub ? Math.max(interval, 15000) : interval) : 0
+    let timer = 0
+    const poll = (ms: number) => {
+      window.clearInterval(timer)
+      timer = interval > 0 ? window.setInterval(reload, ms) : 0
+    }
+    // With a healthy listener, polling is only a slow safety net; if it fails, poll normally.
+    const unsub = opts.watch?.(() => void reload(), () => poll(interval)) ?? null
+    poll(unsub ? Math.max(interval, 15000) : interval)
     return () => {
       unsub?.()
-      if (timer) window.clearInterval(timer)
+      window.clearInterval(timer)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps)

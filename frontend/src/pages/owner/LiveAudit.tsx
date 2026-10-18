@@ -64,7 +64,7 @@ export default function LiveAudit() {
         setAudit(a)
         if (FINAL.includes(a.status)) navigate(`/owner/report/${auditId}`, { replace: true })
       })
-    const unsub = watchAuditDoc(auditId, () => void check())
+    const unsub = watchAuditDoc(auditId)(() => void check(), () => {})
     const t = window.setInterval(check, 2500)
     return () => {
       unsub?.()

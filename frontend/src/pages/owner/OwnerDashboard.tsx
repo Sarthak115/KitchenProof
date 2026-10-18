@@ -38,7 +38,7 @@ export default function OwnerDashboard() {
       return api.restaurantAudits(rid)
     },
     [rid],
-    { intervalMs: 4000, watch: (cb) => watchRestaurantAudits(rid, cb) },
+    { intervalMs: 4000, watch: watchRestaurantAudits(rid) },
   )
 
   const open = (audits.data ?? []).filter((a) => a.status === 'requested' || a.status === 'in_progress')
