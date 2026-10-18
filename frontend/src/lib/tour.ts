@@ -17,7 +17,7 @@ export const TOUR: TourStep[] = [
   },
   {
     title: 'Live audit, one random check at a time',
-    body: 'Checks are revealed one by one, with a random finger-count liveness challenge. For the demo, pick “Messy kitchen” under “Use a sample video” — Gemini analyses it for real.',
+    body: 'Checks are revealed one by one, with a random finger-count liveness challenge. For the demo, pick “Messy kitchen” under “Use a sample video”: a real kitchen video that Gemini analyses live.',
     route: null,
   },
   {
@@ -27,7 +27,7 @@ export const TOUR: TourStep[] = [
   },
   {
     title: 'Customer badge + spot check during an order',
-    body: 'On FoodieGo the badge updated. Press “Order & request a kitchen check”, then “Respond as the kitchen” and pick “Clean kitchen”. Two passed checks → Silver.',
+    body: 'On FoodieGo the badge updated. Press “Order & request a kitchen check”, then “Respond as the kitchen” and pick “Clean kitchen” (score 92). Two passed checks in 30 days → Silver.',
     route: '/customer/restaurant/r01',
   },
   {

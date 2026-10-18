@@ -34,9 +34,13 @@ Open the link and press **"Start the 2-minute demo tour"**. A guide bar walks yo
 1. **Inspector** triggers a surprise audit on *Kalinga Biryani House*.
 2. **Owner** sees the request with a live 10-minute countdown.
 3. **Live audit** — in Demo Mode pick *Messy kitchen* under "Use a sample video" (real Gemini analysis).
-4. **Report** — score ~40 (critical fail caps the score), tap ▶ on any finding to jump to the evidence; try **Dispute**.
-5. **Customer (FoodieGo)** orders, requests a kitchen check, answers it with the *Clean kitchen* sample → badge turns 🥈 Silver.
+4. **Report** — score 31: Gemini finds uncovered food in the fridge (critical, caps the score), dishes in the handwash sink, an open waste bag, a stained board and ghee past its expiry date. Tap ▶ on any finding to jump to the evidence; try **Dispute**.
+5. **Customer (FoodieGo)** orders, requests a kitchen check, answers it with the *Clean kitchen* sample (score 92) → badge turns 🥈 Silver.
 6. **Inspector ranking** with plain-language reasons + **review queue** with a "too perfect for a busy hour" staging flag.
+   Try the *Too-perfect kitchen* sample too: the same clean video at 25 orders/hour is flagged as possibly staged.
+
+The sample videos are real phone recordings of one kitchen (`frontend/public/demo/`). Their analysis is live
+gemini-3.8-flash; if Gemini is unavailable the app shows its saved real output for the same video, marked "cached result".
 
 No login: the app signs judges in anonymously. Turn Demo Mode off (footer) to use the real camera.
 

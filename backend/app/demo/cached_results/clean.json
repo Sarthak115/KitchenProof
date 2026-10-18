@@ -4,131 +4,131 @@
     "findings": [
       {
         "checkId": "fridge_segregation",
-        "status": "fail",
-        "reason": "Cut produce (cabbage) is stored completely uncovered on the lower shelf.",
-        "timestamp": "00:09",
-        "confidence": 0.92
+        "status": "pass",
+        "reason": "Cooked food in stainless steel bowls is covered with lids or plates; fresh vegetables and fruits are placed separately on lower shelves, with no raw meat stored above ready-to-eat items.",
+        "timestamp": "00:04",
+        "confidence": 0.85
       },
       {
         "checkId": "handwash",
-        "status": "fail",
-        "reason": "Running water was not demonstrated from the tap, and the sink contains used cookware.",
-        "timestamp": "00:24",
-        "confidence": 0.88
+        "status": "pass",
+        "reason": "Sink basin is clean, running water is demonstrated from the tap, and liquid soap is present on the rack above the sink.",
+        "timestamp": "00:21",
+        "confidence": 0.82
       },
       {
         "checkId": "dustbins",
-        "status": "fail",
-        "reason": "Trash bin lacks a fitted lid and is only lined with an open plastic bag.",
-        "timestamp": "00:32",
-        "confidence": 0.95
+        "status": "pass",
+        "reason": "Waste bin is fitted with an intact lid that is kept closed, and there is no evidence of overflow.",
+        "timestamp": "00:26",
+        "confidence": 0.92
       },
       {
         "checkId": "surfaces",
         "status": "fail",
-        "reason": "Pan on the stove contains leftover food residue and cooking oil, and the cutting board surface has noticeable stains.",
-        "timestamp": "00:47",
-        "confidence": 0.9
+        "reason": "While the gas stove and stone countertops are wiped clean, the wooden cutting board exhibits noticeable dark staining and water damage on its surface.",
+        "timestamp": "00:48",
+        "confidence": 0.8
       },
       {
         "checkId": "dry_storage",
         "status": "pass",
-        "reason": "Dry goods and spices are kept elevated off the floor on a countertop rack in sealed, closed jars.",
-        "timestamp": "01:11",
-        "confidence": 0.89
+        "reason": "Ingredients and spices are stored off the floor on a multi-tier countertop rack inside closed plastic containers with lids.",
+        "timestamp": "00:53",
+        "confidence": 0.88
       }
     ],
     "liveness": {
-      "observed": "Person placed 4 fingers flat onto the surface of the gas stove",
-      "fingersCounted": 4,
+      "observed": "A hand held out three extended fingers resting on the surface of the gas stove.",
+      "fingersCounted": 3,
       "nearObject": "stove",
-      "timestamp": "01:03",
+      "timestamp": "00:42",
       "confidence": 0.95
     },
     "observedItems": [
       {
-        "label": "Catch Black Salt",
-        "batchOrExpiry": "not visible",
-        "state": "unclear"
+        "label": "Vim Dishwash Liquid",
+        "batchOrExpiry": "unreadable",
+        "state": "opened"
       },
       {
-        "label": "Vim Dishwash Liquid",
-        "batchOrExpiry": "not visible",
-        "state": "opened"
+        "label": "Catch Black Salt Powder",
+        "batchOrExpiry": "unreadable",
+        "state": "unclear"
       }
     ],
     "evidenceClips": [
       {
         "checkId": "fridge_segregation",
-        "startSec": 6.0,
-        "endSec": 10.0
+        "startSec": 1.0,
+        "endSec": 5.0
       },
       {
         "checkId": "handwash",
-        "startSec": 22.0,
-        "endSec": 26.0
+        "startSec": 19.0,
+        "endSec": 23.0
       },
       {
         "checkId": "dustbins",
-        "startSec": 31.0,
-        "endSec": 35.0
+        "startSec": 24.5,
+        "endSec": 28.5
       },
       {
         "checkId": "surfaces",
-        "startSec": 43.0,
-        "endSec": 47.0
+        "startSec": 46.5,
+        "endSec": 50.5
       },
       {
         "checkId": "dry_storage",
-        "startSec": 69.0,
-        "endSec": 73.0
+        "startSec": 51.0,
+        "endSec": 55.0
       }
     ]
   },
   "integrity": {
     "continuousTake": {
       "ok": true,
-      "detail": "The video is a single, continuous camera movement showing the refrigerator, sink, bin, countertop, and stove without visible cuts or edits.",
+      "detail": "The recording is a single continuous take without cuts, edits, or frame freezing.",
       "confidence": 0.95
     },
     "sameKitchenAsReference": {
       "ok": true,
-      "detail": "The domestic kitchen layout, patterned wall tiles, stainless steel sink, countertop, spice rack, and stocked refrigerator align with the reference description.",
-      "confidence": 0.9
+      "detail": "The kitchen layout, patterned wall tiles, stocked refrigerator, sink, spice racks, microwave, and two-burner stove align with the reference description.",
+      "confidence": 0.95
     },
     "activityMatchesOrders": {
       "ok": true,
-      "detail": "The kitchen displays active operational signs corresponding to recent order fulfillment, including a pan with residue and spatula on the stove, cutting board with knife, utensil in the sink, and a stocked refrigerator.",
-      "confidence": 0.85
+      "detail": "The kitchen demonstrates active meal prep with a pressure cooker on the stove, a cutting board with knife ready, and fresh produce stocked, consistent with a low order volume of 6 orders in the last hour.",
+      "confidence": 0.9
     },
     "propsSuspected": {
       "suspected": false,
-      "detail": "Utensils, produce, spices, and appliances appear naturally used and integrated into an everyday home/cloud kitchen setting without signs of staging.",
-      "confidence": 0.9
+      "detail": "Supplies, produce, containers, and appliances display typical everyday domestic and cloud kitchen use without signs of artificial staging.",
+      "confidence": 0.95
     },
-    "kitchenSummary": "A domestic cloud kitchen featuring a stocked single-door refrigerator, a stainless steel sink with washing supplies, a lined dustbin, a three-burner gas stove with a pan and spatula, a cutting board, a spice rack, and a mixer grinder."
+    "kitchenSummary": "A domestic cloud kitchen featuring a stocked refrigerator with fresh vegetables, a sink station, a covered trash container, a two-burner Prestige gas stove holding a pressure cooker, an adjacent countertop with a cutting board, mixer, microwave, and tiered spice racks."
   },
   "coach": {
     "en": [
-      "Cover cut vegetables like cabbage tightly and store them safely above raw meats in clean, sealed containers.",
-      "Clear used cookware out of the handwash sink and keep it free for washing hands; briefly run the tap during checks to show water flow.",
-      "Clean the stovetop pans and scrub stained cutting boards between uses to keep preparation areas fresh.",
-      "Equip kitchen trash bins with tight-fitting lids and keep them closed throughout service.",
-      "During reviews, show a quick video of running tap water to clearly confirm proper handwashing access."
+      "Deep clean the wooden cutting board using hot soapy water and sanitize it with coarse salt and lemon juice or food-safe disinfectant.",
+      "Smooth out stained or moisture-damaged patches on the board by sanding, or replace it with a new food-grade cutting board if cracks remain.",
+      "Always dry the cutting board completely in an upright, well-ventilated spot after washing to prevent water damage and dark spots.",
+      "Great effort on keeping the gas stove and stone countertops clean and spotless—keep up this high standard!",
+      "In the next review, please share close-up, well-lit photos of all food-prep boards and surrounding prep tables to verify them easily."
     ],
     "hi": [
-      "कटी हुई सब्जियों जैसे पत्तागोभी को हमेशा ढककर रखें और उन्हें कच्चे मांस से अलग, साफ डिब्बों में सुरक्षित रखें।",
-      "हाथ धोने वाले सिंक से इस्तेमाल किए गए बर्तनों को हटा दें ताकि हाथ आसानी से धोए जा सकें; जांच के समय नल चलाकर दिखाएं।",
-      "तवे, कड़ाही और दाग लगे कटिंग बोर्ड को काम के बाद अच्छी तरह साफ करें ताकि खाना पकाने की जगह स्वच्छ रहे।",
-      "कचरे के डिब्बे पर ठीक से बैठने वाला ढक्कन लगाएं और उसे हमेशा बंद रखें।",
-      "अगली जांच के दौरान नल से पानी बहता हुआ स्पष्ट रूप से दिखाएं ताकि हाथ धोने की सुविधा की पुष्टि हो सके।"
+      "लकड़ी के चॉपिंग बोर्ड को गर्म साबुन के पानी से गहराई से साफ करें और मोटे नमक व नींबू या सुरक्षित कीटाणुनाशक से सैनिटाइज करें।",
+      "बोर्ड पर लगे गहरे दाग या पानी के निशानों को हल्का घिसकर हटाएं, या जरूरत हो तो नया फूड-ग्रेड कटिंग बोर्ड इस्तेमाल करें।",
+      "धोने के बाद बोर्ड को हमेशा हवादार जगह पर खड़ा करके पूरी तरह सुखाएं ताकि नमी और काले धब्बे न पनपें।",
+      "गैस चूल्हा और पत्थर के काउंटरटॉप को एकदम साफ रखने के लिए आपकी मेहनत सराहनीय है, इसे ऐसे ही बनाए रखें!",
+      "अगली जांच में कटिंग बोर्ड और तैयारी वाले सभी टेबल की अच्छी रोशनी में साफ तस्वीरें साझा करें ताकि सब स्पष्ट दिखाई दे सके।"
     ],
     "or": [
-      "କଟା ପନିପରିବା ଯେପରିକି ବନ୍ଧାକୋବିକୁ ସର୍ବଦା ଘୋଡ଼ାଇ ରଖନ୍ତୁ ଏବଂ କଞ୍ଚା ମାଂସଠାରୁ ଅଲଗା ସଫା ପାତ୍ରରେ ସାଇତି ରଖନ୍ତୁ।",
-      "ହାତ ଧୋଇବା ସିଙ୍କରୁ ବ୍ୟବହୃତ ବାସନକୁସନ ହଟାଇ ଦିଅନ୍ତୁ ଏବଂ ହାତ ଧୋଇବା ପାଇଁ ସଫା ରଖନ୍ତୁ; ଯାଞ୍ଚ ସମୟରେ ନଳ ଚଳାଇ ପାଣି ଦେଖାନ୍ତୁ।",
-      "ଚୁଲାରେ ଥିବା କଡ଼େଇ ଏବଂ ଦାଗ ଲାଗିଥିବା ପନିପରିବା କଟା ବୋର୍ଡକୁ ଭଲଭାବେ ସଫା କରି ରଖନ୍ତୁ।",
-      "ଅଳିଆ ପକାଇବା ଡବାରେ ଉପଯୁକ୍ତ ଢାଙ୍କୁଣୀ ଲଗାନ୍ତୁ ଏବଂ ଏହାକୁ ସବୁବେଳେ ବନ୍ଦ ରଖନ୍ତୁ।",
-      "ପରବର୍ତ୍ତୀ ଯାଞ୍ଚ ସମୟରେ ନଳରୁ ପାଣି ଆସୁଥିବାର ସ୍ପଷ୍ଟ ଭିଡିଓ ଦେଖାନ୍ତୁ ଯାହାଦ୍ୱାରା ସୁବିଧା ସହଜରେ ପ୍ରମାଣିତ ହୋଇପାରିବ।"
+      "କାଠ କଟିଂ ବୋର୍ଡକୁ ଉଷୁମ ସାବୁନ ପାଣିରେ ଭଲ ଭାବେ ଧୋଇ ଲୁଣ ଓ ଲେମ୍ବୁ ରସ କିମ୍ବା ଖାଦ୍ୟ-ସୁରକ୍ଷିତ ଡିସଇନଫେକ୍ଟାଣ୍ଟ ଦ୍ୱାରା ଜୀବାଣୁମୁକ୍ତ କରନ୍ତୁ।",
+      "ଦାଗ ଲାଗିଥିବା ବା ପାଣିରେ ନଷ୍ଟ ହୋଇଥିବା ଅଂଶକୁ ସଫା କରନ୍ତୁ, କିମ୍ବା ଆବଶ୍ୟକ ହେଲେ ନୂଆ ଫୁଡ୍-ଗ୍ରେଡ୍ ବୋର୍ଡ ବ୍ୟବହାର କରନ୍ତୁ।",
+      "ଧୋଇବା ପରେ ବୋର୍ଡକୁ ସର୍ବଦା ପବନ ଚଳାଚଳ ହେଉଥିବା ସ୍ଥାନରେ ଛିଡ଼ା କରି ଭଲ ଭାବରେ ଶୁଖାନ୍ତୁ, ଯାହାଦ୍ୱାରା ପାଣି ଜମି କଳା ଦାଗ ହେବ ନାହିଁ।",
+      "ଗ୍ୟାସ ଚୁଲା ଏବଂ କାଉଣ୍ଟରଟପ୍ ସମ୍ପୂର୍ଣ୍ଣ ସଫାସୁତୁରା ରଖିଥିବାରୁ ଆପଣଙ୍କ ପରିଶ୍ରମ ପ୍ରଶଂସନୀୟ, ଏହା ଜାରି ରଖନ୍ତୁ!",
+      "ପରବର୍ତ୍ତୀ ଯାଞ୍ଚ ସମୟରେ ସମସ୍ତ କଟିଂ ବୋର୍ଡ ଏବଂ ଖାଦ୍ୟ ପ୍ରସ୍ତୁତି ସ୍ଥାନର ଭଲ ଆଲୋକରେ ସ୍ପଷ୍ଟ ଫଟୋ ଦେଖାନ୍ତୁ।"
     ]
   }
 }

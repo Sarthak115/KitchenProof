@@ -80,7 +80,10 @@ def test_demo_sample_story(store):
     c.post(f"/api/audits/{aid2}/demo-sample", json={"sample": "clean"})
     order = c.get(f"/api/orders/{oid}").json()
     assert order["spotCheck"]["score"] == c.get(f"/api/audits/{aid2}").json()["score"]
-    assert order["spotCheck"]["status"] == "scored"
+    assert order["spotCheck"]["status"] == "scored" and order["spotCheck"]["score"] == 92
+    after = c.get("/api/restaurants/r01").json()
+    assert after["tier"] == "silver"  # two passed surprise/customer checks in 30 days
+    assert after["evidenceClips"]
 
     # same customer cannot request again within 7 days
     oid2 = c.post("/api/demo/order", json={"restaurantId": "r01", "customerId": "cust-1"}).json()["orderId"]

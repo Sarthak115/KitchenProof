@@ -1,120 +1,131 @@
 {
-  "modelId": "cached-demo-result",
+  "modelId": "gemini-3.8-flash",
   "auditor": {
     "findings": [
       {
         "checkId": "fridge_segregation",
         "status": "pass",
-        "reason": "Fridge shelves hold only sealed, unopened packs neatly arranged.",
-        "timestamp": "00:08",
+        "reason": "Cooked food in stainless steel bowls is covered with lids or plates; fresh vegetables and fruits are placed separately on lower shelves, with no raw meat stored above ready-to-eat items.",
+        "timestamp": "00:04",
         "confidence": 0.85
       },
       {
         "checkId": "handwash",
         "status": "pass",
-        "reason": "Soap is present, water runs and the basin is spotless.",
-        "timestamp": "00:25",
-        "confidence": 0.88
+        "reason": "Sink basin is clean, running water is demonstrated from the tap, and liquid soap is present on the rack above the sink.",
+        "timestamp": "00:21",
+        "confidence": 0.82
       },
       {
         "checkId": "dustbins",
         "status": "pass",
-        "reason": "Dustbin lid is closed and the bin appears completely empty.",
-        "timestamp": "00:44",
-        "confidence": 0.9
+        "reason": "Waste bin is fitted with an intact lid that is kept closed, and there is no evidence of overflow.",
+        "timestamp": "00:26",
+        "confidence": 0.92
       },
       {
         "checkId": "surfaces",
-        "status": "pass",
-        "reason": "Counter and cutting boards are spotless with no sign of use.",
-        "timestamp": "01:20",
-        "confidence": 0.9
-      },
-      {
-        "checkId": "handler_hygiene",
-        "status": "pass",
-        "reason": "Person wears a head covering, gloves and a crisp apron.",
-        "timestamp": "01:37",
+        "status": "fail",
+        "reason": "While the gas stove and stone countertops are wiped clean, the wooden cutting board exhibits noticeable dark staining and water damage on its surface.",
+        "timestamp": "00:48",
         "confidence": 0.8
       },
       {
-        "checkId": "labels_expiry",
+        "checkId": "dry_storage",
         "status": "pass",
-        "reason": "Two brand-new unopened packets show expiry dates in 2027.",
-        "timestamp": "01:57",
-        "confidence": 0.84
+        "reason": "Ingredients and spices are stored off the floor on a multi-tier countertop rack inside closed plastic containers with lids.",
+        "timestamp": "00:53",
+        "confidence": 0.88
       }
     ],
     "liveness": {
-      "observed": "A hand holds up two fingers in front of the fridge.",
-      "fingersCounted": 2,
-      "nearObject": "fridge",
-      "timestamp": "01:02",
-      "confidence": 0.87
+      "observed": "A hand held out three extended fingers resting on the surface of the gas stove.",
+      "fingersCounted": 3,
+      "nearObject": "stove",
+      "timestamp": "00:42",
+      "confidence": 0.95
     },
     "observedItems": [
       {
-        "label": "Fortune Sunflower Oil 1L",
-        "batchOrExpiry": "B.No 7781 EXP 03/2027",
-        "state": "unopened"
+        "label": "Vim Dishwash Liquid",
+        "batchOrExpiry": "unreadable",
+        "state": "opened"
       },
       {
-        "label": "Aashirvaad Atta 5kg",
-        "batchOrExpiry": "B.No A221 EXP 01/2027",
-        "state": "unopened"
+        "label": "Catch Black Salt Powder",
+        "batchOrExpiry": "unreadable",
+        "state": "unclear"
       }
     ],
     "evidenceClips": [
       {
         "checkId": "fridge_segregation",
-        "startSec": 6,
-        "endSec": 10
+        "startSec": 1.0,
+        "endSec": 5.0
       },
       {
         "checkId": "handwash",
-        "startSec": 24,
-        "endSec": 28
+        "startSec": 19.0,
+        "endSec": 23.0
       },
       {
         "checkId": "dustbins",
-        "startSec": 42,
-        "endSec": 46
+        "startSec": 24.5,
+        "endSec": 28.5
       },
       {
         "checkId": "surfaces",
-        "startSec": 78,
-        "endSec": 82
+        "startSec": 46.5,
+        "endSec": 50.5
+      },
+      {
+        "checkId": "dry_storage",
+        "startSec": 51.0,
+        "endSec": 55.0
       }
     ]
   },
   "integrity": {
     "continuousTake": {
       "ok": true,
-      "detail": "Single continuous take.",
-      "confidence": 0.9
+      "detail": "The footage is a single continuous take with no visible cuts, splices, or edits.",
+      "confidence": 0.95
     },
     "sameKitchenAsReference": {
       "ok": true,
-      "detail": "Layout and equipment match the reference.",
-      "confidence": 0.8
+      "detail": "The kitchen layout, distinctive patterned wall tiles, stainless steel sink, countertop spice rack, stocked refrigerator, and microwave match the reference description.",
+      "confidence": 0.9
     },
     "activityMatchesOrders": {
       "ok": false,
-      "detail": "No food is being prepared, burners are off, the bin is empty and no utensils are in use",
-      "confidence": 0.86
+      "detail": "The kitchen received 25 orders in the past hour, yet there is zero active cooking, no lit burners, no steam or prep underway, and the sink and countertops are completely idle.",
+      "confidence": 0.95
     },
     "propsSuspected": {
-      "suspected": true,
-      "detail": "Every ingredient pack visible is brand-new and unopened, and surfaces look untouched.",
-      "confidence": 0.72
+      "suspected": false,
+      "detail": "The ingredients, produce, and utensils appear to be standard household kitchen supplies rather than staged props.",
+      "confidence": 0.9
     },
-    "kitchenSummary": "Compact kitchen with white wall tiles and a steel two-burner gas range on the left. A single-door fridge stands beside a steel handwash sink."
+    "kitchenSummary": "A domestic kitchen featuring a stocked refrigerator, stainless steel sink with running water, lidded dustbin, glass-top gas stove, spice rack, microwave, and cutting board, currently completely inactive."
   },
   "coach": {
     "en": [
-      "Great job — keep doing what you are doing."
+      "Deep clean and scrub the wooden cutting board with coarse salt and lemon juice or a food-grade sanitizer to lift dark stains.",
+      "Allow the wooden board to dry upright in a well-ventilated area after washing to avoid moisture damage.",
+      "If deep cuts or water damage persist, gently sand down the surface or consider replacing it with a fresh cutting board.",
+      "Keep up the fantastic work on the gas stove and stone countertops, which are already sparkling clean!"
     ],
-    "hi": [],
-    "or": []
+    "hi": [
+      "लकड़ी के कटिंग बोर्ड से गहरे दाग हटाने के लिए उसे मोटे नमक और नींबू या सुरक्षित सैनिटाइज़र से अच्छी तरह रगड़कर धोएं।",
+      "धोने के बाद बोर्ड को पानी से होने वाले नुकसान से बचाने के लिए हवादार जगह पर सीधा खड़ा करके पूरी तरह सूखने दें।",
+      "यदि लकड़ी में गहरे कट या पानी से क्षति बाकी रह जाए, तो सतह को घिसकर ठीक करें या नया कटिंग बोर्ड उपयोग में लाएं।",
+      "गैस चूल्हे और पत्थर के स्लैब को इतना साफ रखने के लिए आपकी मेहनत बेहतरीन है, इसे इसी तरह बनाए रखें!"
+    ],
+    "or": [
+      "କାଠ କଟିଂ ବୋର୍ଡରୁ ଗାଢ଼ ଦାଗ ଦୂର କରିବା ପାଇଁ ମୋଟା ଲୁଣ ଏବଂ ଲେମ୍ବୁ କିମ୍ବା ଖାଦ୍ୟ-ସୁରକ୍ଷିତ ସାନିଟାଇଜର ବ୍ୟବହାର କରି ଭଲଭାବେ ଘଷି ସଫା କରନ୍ତୁ।",
+      "ପାଣି ଜନିତ କ୍ଷତିରୁ ବଞ୍ଚାଇବା ପାଇଁ ଧୋଇବା ପରେ ବୋର୍ଡକୁ ଭଲ ପବନ ଚଳାଚଳ ହେଉଥିବା ସ୍ଥାନରେ ସିଧା ଠିଆ କରି ଶୁଖିବାକୁ ଦିଅନ୍ତୁ।",
+      "ଯଦି ବୋର୍ଡରେ ଗଭୀର ଫାଟ ବା ପାଣିର ଦାଗ ରହିଯାଏ, ତେବେ ତାହାକୁ ଚିକ୍କଣ କରନ୍ତୁ କିମ୍ବା ଏକ ନୂଆ ବୋର୍ଡ ବ୍ୟବହାର କରିବାକୁ ବିଚାର କରନ୍ତୁ।",
+      "ଗ୍ୟାସ ଚୁଲା ଏବଂ ପଥର କାଉଣ୍ଟରକୁ ଏତେ ସଫା ରଖିଥିବାରୁ ଆପଣଙ୍କ ପ୍ରୟାସ ପ୍ରଶଂସନୀୟ, ଏହି ଭଲ କାର୍ଯ୍ୟ ଜାରି ରଖନ୍ତୁ!"
+    ]
   }
 }
