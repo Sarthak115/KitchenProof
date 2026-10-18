@@ -1,138 +1,134 @@
 {
-  "modelId": "cached-demo-result",
+  "modelId": "gemini-3.8-flash",
   "auditor": {
     "findings": [
       {
         "checkId": "fridge_segregation",
         "status": "fail",
-        "reason": "An uncovered raw chicken packet sits on the top shelf directly above a tray of cooked rice.",
-        "timestamp": "00:09",
-        "confidence": 0.92
+        "reason": "Cooked food in bowls and cut produce such as cabbage are left uncovered inside the refrigerator.",
+        "timestamp": "00:07",
+        "confidence": 0.95
       },
       {
         "checkId": "handwash",
-        "status": "pass",
-        "reason": "Soap bottle is present and water runs from the tap into a clean basin.",
-        "timestamp": "00:27",
-        "confidence": 0.84
+        "status": "fail",
+        "reason": "The sink basin contains dirty dishes and cookware, and no dedicated clean handwashing basin is available.",
+        "timestamp": "00:26",
+        "confidence": 0.92
       },
       {
         "checkId": "dustbins",
         "status": "fail",
-        "reason": "The dustbin lid is open and food waste is spilling over the rim.",
-        "timestamp": "00:45",
-        "confidence": 0.9
+        "reason": "Waste is kept in an open black plastic bag directly on the floor without a rigid lidded dustbin.",
+        "timestamp": "00:33",
+        "confidence": 0.98
       },
       {
         "checkId": "surfaces",
         "status": "fail",
-        "reason": "The cutting board has dark stains and food residue build-up near the stove.",
-        "timestamp": "01:20",
-        "confidence": 0.85
-      },
-      {
-        "checkId": "handler_hygiene",
-        "status": "not_verified",
-        "reason": "The cook was only shown briefly from behind; head covering could not be confirmed.",
-        "timestamp": "01:39",
-        "confidence": 0.4
+        "reason": "The cooktop surface has noticeable food spills and residue, and the wooden chopping board exhibits deep staining and wear.",
+        "timestamp": "00:45",
+        "confidence": 0.9
       },
       {
         "checkId": "labels_expiry",
-        "status": "pass",
-        "reason": "Two packets show readable expiry dates in 2027.",
-        "timestamp": "01:58",
-        "confidence": 0.8
+        "status": "fail",
+        "reason": "The Patanjali Cow's Ghee carton displays an expiry date in July (JUL 26 or earlier), which has lapsed compared to today's date of 2026-10-18.",
+        "timestamp": "01:22",
+        "confidence": 0.88
       }
     ],
     "liveness": {
-      "observed": "A hand holds up three fingers in front of the gas stove.",
-      "fingersCounted": 3,
+      "observed": "Hand rested on the edge of the stovetop with 5 fingers touching the counter surface rather than held upright in front of the stove.",
+      "fingersCounted": 5,
       "nearObject": "stove",
-      "timestamp": "01:03",
-      "confidence": 0.88
+      "timestamp": "00:43",
+      "confidence": 0.85
     },
     "observedItems": [
       {
-        "label": "Fortune Sunflower Oil 1L",
-        "batchOrExpiry": "EXP 03/2027",
+        "label": "Patanjali Cow's Ghee",
+        "batchOrExpiry": "EXP: JUL 26",
         "state": "opened"
       },
       {
-        "label": "Aashirvaad Atta 5kg",
-        "batchOrExpiry": "EXP 01/2027",
-        "state": "opened"
+        "label": "Omfed Gold Plus Milk",
+        "batchOrExpiry": "USE BY: 19/10/26",
+        "state": "unopened"
       }
     ],
     "evidenceClips": [
       {
         "checkId": "fridge_segregation",
-        "startSec": 7,
-        "endSec": 11
+        "startSec": 5.0,
+        "endSec": 9.0
       },
       {
         "checkId": "handwash",
-        "startSec": 25,
-        "endSec": 29
+        "startSec": 24.0,
+        "endSec": 28.0
       },
       {
         "checkId": "dustbins",
-        "startSec": 43,
-        "endSec": 47
+        "startSec": 31.0,
+        "endSec": 35.0
       },
       {
         "checkId": "surfaces",
-        "startSec": 78,
-        "endSec": 82
+        "startSec": 43.0,
+        "endSec": 48.0
       },
       {
         "checkId": "labels_expiry",
-        "startSec": 116,
-        "endSec": 120
+        "startSec": 90,
+        "endSec": 93
       }
     ]
   },
   "integrity": {
     "continuousTake": {
       "ok": true,
-      "detail": "Single continuous handheld take with consistent lighting.",
-      "confidence": 0.9
+      "detail": "The video is a single, uninterrupted continuous take with no cuts, jumps, or editing artifacts.",
+      "confidence": 0.95
     },
     "sameKitchenAsReference": {
       "ok": true,
-      "detail": "No reference yet; this becomes the reference.",
-      "confidence": 0.7
+      "detail": "No previous reference exists as this is the first verified audit.",
+      "confidence": 0.95
     },
     "activityMatchesOrders": {
       "ok": true,
-      "detail": "Pans on the stove, used utensils and waste in the bin show an active kitchen.",
-      "confidence": 0.85
+      "detail": "Kitchen displays clear signs of ongoing activity matching the order volume, including used utensils in the sink, cooking vessels on the stove, cutting board with a knife, opened food items, and trash in the waste bag.",
+      "confidence": 0.9
     },
     "propsSuspected": {
       "suspected": false,
-      "detail": "Packs are opened and in use.",
-      "confidence": 0.8
+      "detail": "No artificial props or staging detected; items, pantry supplies, and kitchenware show genuine everyday usage.",
+      "confidence": 0.95
     },
-    "kitchenSummary": "Compact kitchen with white wall tiles and a steel two-burner gas range on the left. A single-door fridge stands beside a steel handwash sink near the entrance."
+    "kitchenSummary": "A domestic/cloud kitchen environment featuring a stocked refrigerator, a sink with used utensils, a trash bag, a two-burner gas stove with pans and a tea vessel, spice shelving, a microwave, and checked dairy products."
   },
   "coach": {
     "en": [
-      "Move the raw chicken to the bottom shelf in a covered tray, below cooked food.",
-      "Put a lid on the dustbin and empty it before it overflows.",
-      "Scrub the cutting board with hot soapy water after every rush.",
-      "Next time, show the cook from the shoulders down so the head covering is visible."
+      "Cover all prepared food and cut vegetables inside the refrigerator tightly, and keep ready-to-eat dishes stored safely away from raw items.",
+      "Clear the handwashing sink of all utensils and cookware so staff always have easy access to soap and running water.",
+      "Remove and safely discard the expired ghee, and do a quick routine check of pantry items to ensure everything is fresh.",
+      "Wipe down the cooktop surface to remove spills, and give the wooden chopping board a deep clean or consider replacing it.",
+      "Place waste inside a sturdy dustbin fitted with a secure lid instead of leaving bags directly on the floor."
     ],
     "hi": [
-      "कच्चे चिकन को ढके हुए ट्रे में सबसे निचली शेल्फ पर रखें, पके हुए खाने के नीचे।",
-      "डस्टबिन पर ढक्कन लगाएं और भरने से पहले खाली करें।",
-      "हर व्यस्त समय के बाद कटिंग बोर्ड को गर्म साबुन वाले पानी से साफ़ करें।",
-      "अगली बार रसोइए को कंधों से नीचे तक दिखाएं ताकि सिर ढका हुआ दिखे।"
+      "फ्रिज में रखे सभी पके हुए भोजन और कटी सब्जियों को अच्छी तरह ढँक कर रखें, तथा पके खाने को कच्चे सामान से अलग रखें।",
+      "हाथ धोने वाले सिंक से गंदे बर्तनों को हटा दें, ताकि हाथ धोने के लिए साबुन और साफ पानी हमेशा आसानी से उपलब्ध रहे।",
+      "तारीख समाप्त हो चुके (एक्सपायर्ड) घी को तुरंत हटा दें और रसोई के अन्य सामानों की एक्सपायरी तारीख भी नियमित रूप से जाँच लें।",
+      "चूल्हे की सतह पर गिरे खाने को साफ करें और लकड़ी के चॉपिंग बोर्ड को अच्छी तरह घिसकर धोएं या जरूरत पड़ने पर बदल लें।",
+      "कचरे को सीधे फर्श पर बैग में रखने के बजाय ढक्कन वाले मजबूत डस्टबिन में रखें और ढक्कन बंद रखें।"
     ],
     "or": [
-      "କଞ୍ଚା ଚିକେନକୁ ଘୋଡ଼ା ଟ୍ରେରେ ସବୁଠୁ ତଳ ତାକରେ ରଖନ୍ତୁ, ରନ୍ଧା ଖାଦ୍ୟ ତଳେ।",
-      "ଡଷ୍ଟବିନରେ ଢାଙ୍କୁଣି ଲଗାନ୍ତୁ ଏବଂ ଭରିବା ପୂର୍ବରୁ ଖାଲି କରନ୍ତୁ।",
-      "ପ୍ରତି ବ୍ୟସ୍ତ ସମୟ ପରେ କଟିଂ ବୋର୍ଡକୁ ଗରମ ସାବୁନ ପାଣିରେ ସଫା କରନ୍ତୁ।",
-      "ପରଦିନ ରୋଷେଇଆଙ୍କୁ କାନ୍ଧ ତଳୁ ଦେଖାନ୍ତୁ ଯାହାଦ୍ୱାରା ମୁଣ୍ଡ ଘୋଡ଼ଣି ଦେଖାଯିବ।"
+      "ଫ୍ରିଜରେ ଥିବା ସମସ୍ତ ରନ୍ଧା ଖାଦ୍ୟ ଏବଂ କଟା ପନିପରିବାକୁ ଭଲ ଭାବରେ ଘୋଡ଼ାଇ ରଖନ୍ତୁ ଏବଂ ରନ୍ଧା ଖାଦ୍ୟକୁ କଞ୍ଚା ଜିନିଷଠାରୁ ଅଲଗା ରଖନ୍ତୁ।",
+      "ହାତ ଧୋଇବା ସିଙ୍କରୁ ଅଇଁଠା ବାସନଗୁଡ଼ିକୁ ହଟାଇ ଦିଅନ୍ତୁ, ଯାହାଫଳରେ ସାବୁନ ଏବଂ ସଫା ପାଣିରେ ହାତ ଧୋଇବା ସହଜ ହେବ।",
+      "ମିଆଦ ପୂରିଯାଇଥିବା (ଏକ୍ସପାୟାର୍ଡ) ଘିଅକୁ ତୁରନ୍ତ ବାହାର କରିଦିଅନ୍ତୁ ଏବଂ ଅନ୍ୟାନ୍ୟ ସାମଗ୍ରୀର ତାରିଖ ନିୟମିତ ଯାଞ୍ଚ କରନ୍ତୁ।",
+      "ଚୁଲାର ଉପରିଭାଗକୁ ଭଲ ଭାବରେ ପୋଛି ସଫା କରନ୍ତୁ ଏବଂ ପନିପରିବା କଟା କାଠ ବୋର୍ଡ଼କୁ ଭଲ ଭାବେ ସଫା କରନ୍ତୁ ବା ବଦଳାଇ ଦିଅନ୍ତୁ।",
+      "ଚଟାଣ ଉପରେ ପଲିଥିନ୍ ନ ରଖି ଆବର୍ଜନାକୁ ସର୍ବଦା ଢାଙ୍କୁଣୀ ଥିବା ଡଷ୍ଟବିନରେ ରଖନ୍ତୁ।"
     ]
   }
 }

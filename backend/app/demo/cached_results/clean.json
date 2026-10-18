@@ -1,132 +1,134 @@
 {
-  "modelId": "cached-demo-result",
+  "modelId": "gemini-3.8-flash",
   "auditor": {
     "findings": [
       {
         "checkId": "fridge_segregation",
-        "status": "pass",
-        "reason": "Raw chicken is in a covered box on the bottom shelf; cooked food is covered on the top shelf.",
-        "timestamp": "00:08",
-        "confidence": 0.9
+        "status": "fail",
+        "reason": "Cut produce (cabbage) is stored completely uncovered on the lower shelf.",
+        "timestamp": "00:09",
+        "confidence": 0.92
       },
       {
         "checkId": "handwash",
-        "status": "pass",
-        "reason": "Soap is present, water runs and the basin is clean.",
-        "timestamp": "00:26",
+        "status": "fail",
+        "reason": "Running water was not demonstrated from the tap, and the sink contains used cookware.",
+        "timestamp": "00:24",
         "confidence": 0.88
       },
       {
         "checkId": "dustbins",
-        "status": "pass",
-        "reason": "Both dustbins have closed lids and are not overflowing.",
-        "timestamp": "00:44",
-        "confidence": 0.9
+        "status": "fail",
+        "reason": "Trash bin lacks a fitted lid and is only lined with an open plastic bag.",
+        "timestamp": "00:32",
+        "confidence": 0.95
       },
       {
         "checkId": "surfaces",
         "status": "fail",
-        "reason": "Light food residue remains on one corner of the cutting board.",
-        "timestamp": "01:21",
-        "confidence": 0.7
+        "reason": "Pan on the stove contains leftover food residue and cooking oil, and the cutting board surface has noticeable stains.",
+        "timestamp": "00:47",
+        "confidence": 0.9
       },
       {
-        "checkId": "handler_hygiene",
+        "checkId": "dry_storage",
         "status": "pass",
-        "reason": "The cook wears a head covering, gloves and a clean apron.",
-        "timestamp": "01:38",
-        "confidence": 0.86
-      },
-      {
-        "checkId": "labels_expiry",
-        "status": "pass",
-        "reason": "Two packets show readable expiry dates in 2027.",
-        "timestamp": "01:57",
-        "confidence": 0.82
+        "reason": "Dry goods and spices are kept elevated off the floor on a countertop rack in sealed, closed jars.",
+        "timestamp": "01:11",
+        "confidence": 0.89
       }
     ],
     "liveness": {
-      "observed": "A hand holds up three fingers in front of the gas stove.",
-      "fingersCounted": 3,
+      "observed": "Person placed 4 fingers flat onto the surface of the gas stove",
+      "fingersCounted": 4,
       "nearObject": "stove",
-      "timestamp": "01:02",
-      "confidence": 0.9
+      "timestamp": "01:03",
+      "confidence": 0.95
     },
     "observedItems": [
       {
-        "label": "Fortune Sunflower Oil 1L",
-        "batchOrExpiry": "EXP 03/2027",
-        "state": "opened"
+        "label": "Catch Black Salt",
+        "batchOrExpiry": "not visible",
+        "state": "unclear"
       },
       {
-        "label": "Aashirvaad Atta 5kg",
-        "batchOrExpiry": "EXP 01/2027",
+        "label": "Vim Dishwash Liquid",
+        "batchOrExpiry": "not visible",
         "state": "opened"
       }
     ],
     "evidenceClips": [
       {
         "checkId": "fridge_segregation",
-        "startSec": 6,
-        "endSec": 10
+        "startSec": 6.0,
+        "endSec": 10.0
       },
       {
         "checkId": "handwash",
-        "startSec": 24,
-        "endSec": 28
+        "startSec": 22.0,
+        "endSec": 26.0
       },
       {
         "checkId": "dustbins",
-        "startSec": 42,
-        "endSec": 46
+        "startSec": 31.0,
+        "endSec": 35.0
       },
       {
         "checkId": "surfaces",
-        "startSec": 79,
-        "endSec": 83
+        "startSec": 43.0,
+        "endSec": 47.0
       },
       {
-        "checkId": "labels_expiry",
-        "startSec": 116,
-        "endSec": 120
+        "checkId": "dry_storage",
+        "startSec": 69.0,
+        "endSec": 73.0
       }
     ]
   },
   "integrity": {
     "continuousTake": {
       "ok": true,
-      "detail": "Single continuous take; lighting and room stay consistent.",
-      "confidence": 0.9
+      "detail": "The video is a single, continuous camera movement showing the refrigerator, sink, bin, countertop, and stove without visible cuts or edits.",
+      "confidence": 0.95
     },
     "sameKitchenAsReference": {
       "ok": true,
-      "detail": "Same tiles, gas range and fridge position as the reference.",
-      "confidence": 0.85
+      "detail": "The domestic kitchen layout, patterned wall tiles, stainless steel sink, countertop, spice rack, and stocked refrigerator align with the reference description.",
+      "confidence": 0.9
     },
     "activityMatchesOrders": {
       "ok": true,
-      "detail": "Food is being prepared and utensils are in use.",
+      "detail": "The kitchen displays active operational signs corresponding to recent order fulfillment, including a pan with residue and spatula on the stove, cutting board with knife, utensil in the sink, and a stocked refrigerator.",
       "confidence": 0.85
     },
     "propsSuspected": {
       "suspected": false,
-      "detail": "Packs are opened and partly used.",
-      "confidence": 0.8
+      "detail": "Utensils, produce, spices, and appliances appear naturally used and integrated into an everyday home/cloud kitchen setting without signs of staging.",
+      "confidence": 0.9
     },
-    "kitchenSummary": "Compact kitchen with white wall tiles and a steel two-burner gas range on the left. A single-door fridge stands beside a steel handwash sink near the entrance."
+    "kitchenSummary": "A domestic cloud kitchen featuring a stocked single-door refrigerator, a stainless steel sink with washing supplies, a lined dustbin, a three-burner gas stove with a pan and spatula, a cutting board, a spice rack, and a mixer grinder."
   },
   "coach": {
     "en": [
-      "Give the cutting board one more scrub at the corners after each rush.",
-      "Keep up the great work on fridge storage and dustbin lids."
+      "Cover cut vegetables like cabbage tightly and store them safely above raw meats in clean, sealed containers.",
+      "Clear used cookware out of the handwash sink and keep it free for washing hands; briefly run the tap during checks to show water flow.",
+      "Clean the stovetop pans and scrub stained cutting boards between uses to keep preparation areas fresh.",
+      "Equip kitchen trash bins with tight-fitting lids and keep them closed throughout service.",
+      "During reviews, show a quick video of running tap water to clearly confirm proper handwashing access."
     ],
     "hi": [
-      "हर व्यस्त समय के बाद कटिंग बोर्ड के कोनों को एक बार और रगड़ कर साफ़ करें।",
-      "फ्रिज भंडारण और डस्टबिन ढक्कन पर अच्छा काम जारी रखें।"
+      "कटी हुई सब्जियों जैसे पत्तागोभी को हमेशा ढककर रखें और उन्हें कच्चे मांस से अलग, साफ डिब्बों में सुरक्षित रखें।",
+      "हाथ धोने वाले सिंक से इस्तेमाल किए गए बर्तनों को हटा दें ताकि हाथ आसानी से धोए जा सकें; जांच के समय नल चलाकर दिखाएं।",
+      "तवे, कड़ाही और दाग लगे कटिंग बोर्ड को काम के बाद अच्छी तरह साफ करें ताकि खाना पकाने की जगह स्वच्छ रहे।",
+      "कचरे के डिब्बे पर ठीक से बैठने वाला ढक्कन लगाएं और उसे हमेशा बंद रखें।",
+      "अगली जांच के दौरान नल से पानी बहता हुआ स्पष्ट रूप से दिखाएं ताकि हाथ धोने की सुविधा की पुष्टि हो सके।"
     ],
     "or": [
-      "ପ୍ରତି ବ୍ୟସ୍ତ ସମୟ ପରେ କଟିଂ ବୋର୍ଡର କୋଣଗୁଡ଼ିକୁ ଆଉ ଥରେ ଘଷି ସଫା କରନ୍ତୁ।",
-      "ଫ୍ରିଜ ସଂରକ୍ଷଣ ଏବଂ ଡଷ୍ଟବିନ ଢାଙ୍କୁଣିରେ ଭଲ କାମ ଜାରି ରଖନ୍ତୁ।"
+      "କଟା ପନିପରିବା ଯେପରିକି ବନ୍ଧାକୋବିକୁ ସର୍ବଦା ଘୋଡ଼ାଇ ରଖନ୍ତୁ ଏବଂ କଞ୍ଚା ମାଂସଠାରୁ ଅଲଗା ସଫା ପାତ୍ରରେ ସାଇତି ରଖନ୍ତୁ।",
+      "ହାତ ଧୋଇବା ସିଙ୍କରୁ ବ୍ୟବହୃତ ବାସନକୁସନ ହଟାଇ ଦିଅନ୍ତୁ ଏବଂ ହାତ ଧୋଇବା ପାଇଁ ସଫା ରଖନ୍ତୁ; ଯାଞ୍ଚ ସମୟରେ ନଳ ଚଳାଇ ପାଣି ଦେଖାନ୍ତୁ।",
+      "ଚୁଲାରେ ଥିବା କଡ଼େଇ ଏବଂ ଦାଗ ଲାଗିଥିବା ପନିପରିବା କଟା ବୋର୍ଡକୁ ଭଲଭାବେ ସଫା କରି ରଖନ୍ତୁ।",
+      "ଅଳିଆ ପକାଇବା ଡବାରେ ଉପଯୁକ୍ତ ଢାଙ୍କୁଣୀ ଲଗାନ୍ତୁ ଏବଂ ଏହାକୁ ସବୁବେଳେ ବନ୍ଦ ରଖନ୍ତୁ।",
+      "ପରବର୍ତ୍ତୀ ଯାଞ୍ଚ ସମୟରେ ନଳରୁ ପାଣି ଆସୁଥିବାର ସ୍ପଷ୍ଟ ଭିଡିଓ ଦେଖାନ୍ତୁ ଯାହାଦ୍ୱାରା ସୁବିଧା ସହଜରେ ପ୍ରମାଣିତ ହୋଇପାରିବ।"
     ]
   }
 }
