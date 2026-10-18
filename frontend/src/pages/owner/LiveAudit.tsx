@@ -12,9 +12,9 @@ import type { Audit, Instruction } from '../../lib/types'
 type Phase = 'intro' | 'starting' | 'recording' | 'uploading' | 'analyzing' | 'error'
 
 const SAMPLES = [
-  { id: 'messy', label: 'Messy kitchen', hint: 'Uncovered food in the fridge, dishes in the sink, open waste bag, expired ghee' },
-  { id: 'clean', label: 'Clean kitchen', hint: 'Same kitchen after fixing the problems' },
-  { id: 'too_perfect', label: 'Too-perfect kitchen', hint: 'The same clean video, but during a busy hour (25 orders): spotless and idle looks staged' },
+  { id: 'messy', label: 'Messy kitchen', hint: 'Several hygiene problems' },
+  { id: 'clean', label: 'Clean kitchen', hint: 'Same kitchen, fixed' },
+  { id: 'too_perfect', label: 'Too-perfect kitchen', hint: 'Spotless but idle in a busy hour' },
 ] as const
 
 const FINAL = ['scored', 'inconclusive', 'flagged', 'under_review', 'resolved']
@@ -285,11 +285,9 @@ export default function LiveAudit() {
           </p>
         )}
         <ul className="mt-4 space-y-2 text-sm text-slate-700">
-          <li>📷 We need your <b>camera</b>, <b>microphone</b> and <b>location</b>.</li>
-          <li>🎲 Checks appear <b>one at a time</b>. Show each one, then tap “Done — next”.</li>
-          <li>✋ At some point you will get a quick gesture challenge.</li>
-          <li>🙈 Please <b>keep faces out of frame</b>. We only look at hygiene items.</li>
-          <li>🔒 The video is private, used only for this audit and review, and deleted after 90 days.</li>
+          <li>🎲 Show each check, then tap “Done — next”</li>
+          <li>✋ Do the hand gesture when asked</li>
+          <li>🙈 Keep faces out of frame · video stays private</li>
         </ul>
         {error && <p className="mt-3 rounded-lg bg-red-50 p-2 text-sm text-red-700">{error}</p>}
         <button type="button" onClick={startCamera} disabled={!audit} className="btn-primary mt-5 w-full text-lg">
@@ -300,8 +298,7 @@ export default function LiveAudit() {
       {demo && (
         <div className="card border-amber-300 bg-amber-50">
           <div className="text-xs font-bold uppercase tracking-wider text-amber-800">Demo Mode</div>
-          <h2 className="font-bold">Use a sample video instead of the camera</h2>
-          <p className="text-sm text-amber-900">Recorded by the team following a fixed instruction timeline. Gemini analyses it for real.</p>
+          <h2 className="font-bold">Or use a sample kitchen video</h2>
           <div className="mt-3 grid gap-2">
             {SAMPLES.map((s) => (
               <button

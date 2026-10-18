@@ -58,18 +58,12 @@ export default function CustomerOrder() {
           <h2 className="text-lg font-bold">🔍 See the kitchen making your food</h2>
           {!check && (
             <>
-              <p className="mt-1 text-sm text-slate-600">
-                Ask the kitchen for a live, AI-verified walk-through while your order is being prepared. You will see the result,
-                not the raw video.
-              </p>
+              <p className="mt-1 text-sm text-slate-600">The kitchen shows you, live, while your food is made.</p>
               <button type="button" disabled={busy || o.status !== 'preparing'} onClick={request} className="btn mt-3 w-full bg-rose-600 text-white hover:bg-rose-700">
                 {busy ? 'Requesting…' : 'Request a kitchen check'}
               </button>
               {err && <p className="mt-2 rounded-lg bg-red-50 p-2 text-sm text-red-700">{err}</p>}
-              <p className="mt-2 text-xs text-slate-500">
-                Limits: 1 request per restaurant every {config.customerCooldownDays} days; up to {config.customerChecksPerDay}{' '}
-                customer checks per kitchen per day.
-              </p>
+              <p className="mt-2 text-xs text-slate-500">1 request per restaurant every {config.customerCooldownDays} days.</p>
             </>
           )}
           {check && pending && (

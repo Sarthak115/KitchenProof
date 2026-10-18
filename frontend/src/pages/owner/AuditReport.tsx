@@ -126,10 +126,7 @@ export default function AuditReport() {
               />
             ))}
           </ul>
-          <p className="mt-2 text-xs text-slate-500">
-            “Not verified” means the check was not shown clearly — it lowers coverage, never the score. Findings with low AI
-            confidence go to a human and are never public.
-          </p>
+          <p className="mt-2 text-xs text-slate-500">“Not verified” never lowers the score.</p>
         </section>
       </div>
 

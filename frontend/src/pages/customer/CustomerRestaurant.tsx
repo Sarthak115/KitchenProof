@@ -84,10 +84,6 @@ export default function CustomerRestaurant() {
               </li>
             ))}
           </ul>
-          <p className="mt-3 text-sm text-slate-600">
-            Checks are unannounced live phone walk-throughs analysed by Google Gemini, with a liveness challenge and an
-            integrity check. Customers see results and short clips, never the raw video.
-          </p>
           <Disclaimer className="mt-3" />
         </section>
       </div>

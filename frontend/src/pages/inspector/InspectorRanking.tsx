@@ -105,10 +105,6 @@ export default function InspectorRanking() {
           ))}
         </ul>
       </div>
-      <p className="text-xs text-slate-500">
-        Risk = (100 − score) × 0.5 + 15 per missed check + 20 if an integrity flag + 10 per open dispute + 10 if the score fell
-        20+ points + 15 if no verified audit in 30 days.
-      </p>
     </div>
   )
 }

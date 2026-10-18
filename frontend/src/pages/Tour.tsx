@@ -15,11 +15,7 @@ export default function Tour() {
   return (
     <div className="page max-w-2xl">
       <h1 className="text-2xl font-extrabold sm:text-3xl">The 2-minute demo tour</h1>
-      <p className="mt-2 text-slate-600">
-        Six steps through the whole story. A guide bar at the bottom of the screen tells you what to press. Everything runs
-        on the deployed app — including a real Gemini analysis of a sample kitchen video
-        {config.geminiAvailable ? '' : ' (cached result while Gemini is not configured)'}.
-      </p>
+      <p className="mt-2 text-slate-600">Six short steps. A guide bar tells you what to press.</p>
       <ol className="mt-6 space-y-3">
         {TOUR.map((s, i) => (
           <li key={s.title} className="card flex gap-3">

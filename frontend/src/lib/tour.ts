@@ -6,33 +6,33 @@ export interface TourStep {
 
 export const TOUR: TourStep[] = [
   {
-    title: 'Inspector triggers a surprise audit',
-    body: 'You are a food safety inspector. Press “Trigger surprise audit” on Kalinga Biryani House. The owner does not know when this will happen.',
+    title: 'Inspector sends a surprise check',
+    body: 'Press “Trigger surprise audit” on Kalinga Biryani House.',
     route: '/inspector',
   },
   {
-    title: 'The owner sees a countdown',
-    body: 'The kitchen must start within 10 minutes and finish within 4, or it becomes a public missed check. Press “Start audit now”.',
+    title: 'The owner gets 10 minutes',
+    body: 'Press “Start audit now”.',
     route: '/owner?r=r01',
   },
   {
-    title: 'Live audit, one random check at a time',
-    body: 'Checks are revealed one by one, with a random finger-count liveness challenge. For the demo, pick “Messy kitchen” under “Use a sample video”: a real kitchen video that Gemini analyses live.',
+    title: 'Live audit',
+    body: 'Pick “Messy kitchen”. Gemini analyses the video.',
     route: null,
   },
   {
-    title: 'Report with timestamped evidence',
-    body: 'Every finding has a timestamp: tap ▶ to jump to the moment in the video. “Not verified” lowers coverage, never the score. Try “Dispute” on a finding.',
+    title: 'AI report with evidence',
+    body: 'Tap ▶ on a finding to see the moment in the video.',
     route: null,
   },
   {
-    title: 'Customer badge + spot check during an order',
-    body: 'On FoodieGo the badge updated. Press “Order & request a kitchen check”, then “Respond as the kitchen” and pick “Clean kitchen” (score 92). Two passed checks in 30 days → Silver.',
+    title: 'Customer checks during an order',
+    body: 'Press “Order & request a kitchen check”, then “Respond as the kitchen” → “Clean kitchen”.',
     route: '/customer/restaurant/r01',
   },
   {
-    title: 'Inspector ranking + review queue',
-    body: 'Kitchens are ranked with plain-language reasons. Open the Review queue: Dalma Junction’s spotless, empty kitchen during a busy hour was flagged as possibly staged.',
+    title: 'Inspector review',
+    body: 'Open the Review queue to see a staged “too perfect” kitchen.',
     route: '/inspector',
   },
 ]
