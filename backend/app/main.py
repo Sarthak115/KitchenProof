@@ -356,10 +356,13 @@ def demo_sample(audit_id: str, body: DemoSampleBody, background: BackgroundTasks
 
     # The sample video was filmed against a fixed timeline: adopt it as this audit's plan.
     check_ids = [c["checkId"] for c in sample["checks"]]
-    live = sample["liveness"]
-    live_prompt = f"Hold up {live['n']} finger{'s' if live['n'] != 1 else ''} in front of the {live['object']}"
+    live = sample.get("liveness")  # a sample may have no usable gesture on camera
+    live_prompt = (
+        f"Hold up {live['n']} finger{'s' if live['n'] != 1 else ''} in front of the {live['object']}" if live else None
+    )
     sequence = [{"kind": "check", "checkId": c["checkId"], "offsetSec": c["offsetSec"]} for c in sample["checks"]]
-    sequence.append({"kind": "liveness", "offsetSec": live["offsetSec"]})
+    if live:
+        sequence.append({"kind": "liveness", "offsetSec": live["offsetSec"]})
     sequence.sort(key=lambda s: s["offsetSec"])
     store.update(
         "auditSecrets",
@@ -367,7 +370,7 @@ def demo_sample(audit_id: str, body: DemoSampleBody, background: BackgroundTasks
         {
             "plannedChecks": check_ids,
             "sequence": [{k: v for k, v in s.items() if k != "offsetSec"} for s in sequence],
-            "livenessExpected": {"n": live["n"], "object": live["object"]},
+            "livenessExpected": {"n": live["n"], "object": live["object"]} if live else None,
             "livenessPrompt": live_prompt,
         },
     )
@@ -388,7 +391,7 @@ def demo_sample(audit_id: str, body: DemoSampleBody, background: BackgroundTasks
                 {"checkId": c["checkId"], "prompt": C.prompt_for(c["checkId"], audit.get("orderId")), "revealedAtServer": now, "offsetSec": c["offsetSec"]}
                 for c in sample["checks"]
             ],
-            "liveness": {"prompt": live_prompt, "revealedAtServer": now, "offsetSec": live["offsetSec"]},
+            "liveness": {"prompt": live_prompt, "revealedAtServer": now, "offsetSec": live["offsetSec"]} if live else None,
             "gps": {**rest["geo"], "accuracy": 10},
             "distanceFromRegisteredM": 0,
             "videoPath": f"demo:{body.sample}",

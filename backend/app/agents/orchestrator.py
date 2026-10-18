@@ -170,7 +170,7 @@ def analyze(store: Store, audit_id: str, video_ref: str, mime: str, sample: str 
         "status": scored["status"],
         "issuesFound": scored["issuesFound"],
         "integrity": integrity_result,
-        "liveness": {**(liveness or {}), "observed": aud.get("liveness")},
+        "liveness": {**liveness, "observed": aud.get("liveness")} if liveness else None,
         "observedItems": aud.get("observedItems") or [],
         "evidenceClips": clamp_clips(aud.get("evidenceClips") or [], audit.get("durationSec")),
         "checkOrder": check_ids,

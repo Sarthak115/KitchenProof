@@ -4,11 +4,26 @@
   "mime": "video/mp4",
   "durationSec": 93,
   "checks": [
-    {"checkId": "fridge_segregation", "offsetSec": 0},
-    {"checkId": "handwash", "offsetSec": 21},
-    {"checkId": "dustbins", "offsetSec": 30},
-    {"checkId": "surfaces", "offsetSec": 54},
-    {"checkId": "labels_expiry", "offsetSec": 77}
+    {
+      "checkId": "fridge_segregation",
+      "offsetSec": 0
+    },
+    {
+      "checkId": "handwash",
+      "offsetSec": 21
+    },
+    {
+      "checkId": "dustbins",
+      "offsetSec": 30
+    },
+    {
+      "checkId": "surfaces",
+      "offsetSec": 54
+    },
+    {
+      "checkId": "labels_expiry",
+      "offsetSec": 77
+    }
   ],
-  "liveness": {"n": 5, "object": "stove", "offsetSec": 39}
+  "liveness": null
 }
